@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyHost - High Performance Container & Bot Hosting</title>
+    <title>SkyHost</title>
     <link rel="icon" type="image/gif" href="https://www.upload.ee/image/19736655/ezgif.com-video-to-gif-converter__1___1_.gif">
 
     <!-- Tailwind CSS -->
@@ -145,9 +145,18 @@
                 </nav>
             </div>
 
-            <!-- User Auth Controls -->
-            <div id="user-auth-section" class="flex items-center gap-3">
-                <!-- Dynamically rendered by JS -->
+            <!-- User Auth Controls & Language Switcher -->
+            <div class="flex items-center gap-3">
+                <div id="user-auth-section" class="flex items-center gap-3">
+                    <!-- Dynamically rendered by JS -->
+                </div>
+
+                <!-- Language Switcher (ID | EN) -->
+                <div class="flex items-center gap-1.5 font-mono text-xs pl-2 border-l border-pt-border select-none">
+                    <button id="lang-btn-id" onclick="setLanguage('ID')" class="text-cyan-400 font-bold cursor-pointer transition-colors">ID</button>
+                    <span class="text-slate-600 font-normal">|</span>
+                    <button id="lang-btn-en" onclick="setLanguage('EN')" class="text-slate-400 hover:text-white font-normal cursor-pointer transition-colors">EN</button>
+                </div>
             </div>
         </div>
     </header>
@@ -160,23 +169,23 @@
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
             <div class="inline-flex items-center gap-2 bg-pt-card/80 border border-pt-border px-3.5 py-1.5 rounded-full text-xs font-mono">
-                <span class="bg-cyan-500 text-black font-extrabold px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider">HARGA MURAH</span>
-                <span class="text-pt-bright">Bot Hosting & Container Server mulai Rp 5.000/bln</span>
+                <span data-i18n="heroBadgeTag" class="bg-cyan-500 text-black font-extrabold px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider">HARGA MURAH</span>
+                <span data-i18n="heroBadgeSub" class="text-pt-bright">Bot Hosting & Container Server mulai Rp 5.000/bln</span>
             </div>
 
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
+            <h1 data-i18n="heroTitle" class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
                 SkyHost — Cloud Container & Hosting Bot High Performance
             </h1>
 
-            <p class="text-sm md:text-base text-pt-text max-w-2xl mx-auto leading-relaxed">
+            <p data-i18n="heroDesc" class="text-sm md:text-base text-pt-text max-w-2xl mx-auto leading-relaxed">
                 Host Discord.js, Telegram Bot, Python App, dan Node.js 24/7 tanpa mati. Ditenagai prosesor enterprise Intel Xeon / AMD EPYC dengan kontrol panel Pterodactyl instan.
             </p>
 
             <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
-                <a href="#plans-section" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs md:text-sm rounded-lg transition-all shadow-lg shadow-cyan-600/20 flex items-center gap-2">
+                <a href="#plans-section" data-i18n="btnPlans" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs md:text-sm rounded-lg transition-all shadow-lg shadow-cyan-600/20 flex items-center gap-2">
                     <i class="fa-solid fa-layer-group"></i> Lihat Paket
                 </a>
-                <button onclick="openOrderModal()" class="px-6 py-3 bg-pt-card hover:bg-pt-border text-white font-bold text-xs md:text-sm rounded-lg transition-all border border-pt-border flex items-center gap-2">
+                <button onclick="openOrderModal()" data-i18n="btnDeploy" class="px-6 py-3 bg-pt-card hover:bg-pt-border text-white font-bold text-xs md:text-sm rounded-lg transition-all border border-pt-border flex items-center gap-2">
                     Deploy Sekarang <i class="fa-solid fa-arrow-up-right-from-square text-xs text-cyan-400"></i>
                 </button>
             </div>
@@ -189,8 +198,8 @@
                             <i class="fa-solid fa-server"></i>
                         </div>
                         <div>
-                            <span class="text-xs text-pt-text font-mono block">Bot Container</span>
-                            <strong class="text-sm text-white font-mono">Mulai Rp 5.000/bln</strong>
+                            <span data-i18n="cardStarterTitle" class="text-xs text-pt-text font-mono block">Bot Container</span>
+                            <strong data-i18n="cardStarterSub" class="text-sm text-white font-mono">Mulai Rp 5.000/bln</strong>
                         </div>
                     </div>
                     <i class="fa-solid fa-arrow-right text-pt-text group-hover:text-cyan-400 transition-colors text-xs"></i>
@@ -202,8 +211,8 @@
                             <i class="fa-solid fa-cubes"></i>
                         </div>
                         <div>
-                            <span class="text-xs text-pt-text font-mono block">Heavy Multi-Bot Node</span>
-                            <strong class="text-sm text-white font-mono">Mulai Rp 20.000/bln</strong>
+                            <span data-i18n="cardHeavyTitle" class="text-xs text-pt-text font-mono block">Heavy Multi-Bot Node</span>
+                            <strong data-i18n="cardHeavySub" class="text-sm text-white font-mono">Mulai Rp 20.000/bln</strong>
                         </div>
                     </div>
                     <i class="fa-solid fa-arrow-right text-pt-text group-hover:text-cyan-400 transition-colors text-xs"></i>
@@ -254,7 +263,7 @@
                         <i class="fa-solid fa-users"></i>
                     </div>
                     <span class="text-2xl md:text-3xl font-extrabold text-white font-mono block">1000+</span>
-                    <span class="text-xs text-pt-text uppercase font-semibold tracking-wider">Pengguna Aktif</span>
+                    <span data-i18n="statActiveUsers" class="text-xs text-pt-text uppercase font-semibold tracking-wider">Pengguna Aktif</span>
                 </div>
 
                 <div class="bg-pt-card border border-pt-border p-5 rounded-xl">
@@ -262,7 +271,7 @@
                         <i class="fa-solid fa-chart-line"></i>
                     </div>
                     <span class="text-2xl md:text-3xl font-extrabold text-white font-mono block">99.99%</span>
-                    <span class="text-xs text-pt-text uppercase font-semibold tracking-wider">Uptime SLA</span>
+                    <span data-i18n="statUptime" class="text-xs text-pt-text uppercase font-semibold tracking-wider">Uptime SLA</span>
                 </div>
 
                 <div class="bg-pt-card border border-pt-border p-5 rounded-xl">
@@ -270,7 +279,7 @@
                         <i class="fa-solid fa-bolt"></i>
                     </div>
                     <span class="text-2xl md:text-3xl font-extrabold text-white font-mono block">10 Gbps</span>
-                    <span class="text-xs text-pt-text uppercase font-semibold tracking-wider">Network Premium</span>
+                    <span data-i18n="statNetwork" class="text-xs text-pt-text uppercase font-semibold tracking-wider">Network Premium</span>
                 </div>
 
                 <div class="bg-pt-card border border-pt-border p-5 rounded-xl">
@@ -278,7 +287,7 @@
                         <i class="fa-solid fa-rocket"></i>
                     </div>
                     <span class="text-2xl md:text-3xl font-extrabold text-white font-mono block">&lt;60s</span>
-                    <span class="text-xs text-pt-text uppercase font-semibold tracking-wider">Aktif Instan</span>
+                    <span data-i18n="statInstant" class="text-xs text-pt-text uppercase font-semibold tracking-wider">Aktif Instan</span>
                 </div>
             </div>
         </section>
@@ -287,7 +296,7 @@
         <section class="max-w-7xl mx-auto px-4 space-y-4">
             <div class="flex items-center justify-between border-b border-pt-border pb-3">
                 <h2 class="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-cyan-400"></i> Server Bot Anda
+                    <i class="fa-solid fa-list-check text-cyan-400"></i> <span data-i18n="secServers">Server Bot Anda</span>
                 </h2>
                 <span id="server-count-badge" class="text-xs bg-pt-card border border-pt-border text-cyan-400 px-3 py-1 rounded-full font-mono">0 Server</span>
             </div>
@@ -301,9 +310,9 @@
         <!-- HOSTING PLANS SECTION -->
         <section id="plans-section" class="max-w-7xl mx-auto px-4 space-y-6">
             <div class="text-center space-y-2">
-                <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full">HARGA TERJANGKAU</span>
-                <h2 class="text-2xl md:text-3xl font-extrabold text-white">Paket SkyHost Bot Hosting</h2>
-                <p class="text-xs md:text-sm text-pt-text max-w-xl mx-auto">Pilih alokasi RAM & CPU sesuai kebutuhan bot Anda. Harga mulai Rp 5.000/bulan.</p>
+                <span data-i18n="secPlansTag" class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full">HARGA TERJANGKAU</span>
+                <h2 data-i18n="secPlansTitle" class="text-2xl md:text-3xl font-extrabold text-white">Paket SkyHost Bot Hosting</h2>
+                <p data-i18n="secPlansSub" class="text-xs md:text-sm text-pt-text max-w-xl mx-auto">Pilih alokasi RAM & CPU sesuai kebutuhan bot Anda. Harga mulai Rp 5.000/bulan.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -314,12 +323,12 @@
                             <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">STARTER BOT</span>
                             <span class="text-xs font-mono text-emerald-400 font-bold">1 GB RAM</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mt-3">Paket Starter</h3>
+                        <h3 data-i18n="planStarterTitle" class="text-lg font-bold text-white mt-3">Paket Starter</h3>
                         <div class="mt-2 mb-3">
                             <span class="text-2xl font-extrabold text-white font-mono">Rp 5.000</span>
                             <span class="text-xs text-pt-text">/ bulan</span>
                         </div>
-                        <p class="text-xs text-pt-text leading-relaxed">Cocok untuk WhatsApp Bot kecil atau Telegram Bot.</p>
+                        <p data-i18n="planStarterDesc" class="text-xs text-pt-text leading-relaxed">Cocok untuk WhatsApp Bot kecil atau Telegram Bot.</p>
                         
                         <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1 GB RAM DDR4</li>
@@ -328,7 +337,7 @@
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Anti DDOS Protection</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal('starter')" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all shadow-md shadow-cyan-600/10">
+                    <button onclick="openOrderModal('starter')" data-i18n="btnSelectPlan5" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all shadow-md shadow-cyan-600/10">
                         Pilih Paket Rp 5.000
                     </button>
                 </div>
@@ -341,12 +350,12 @@
                             <span class="text-[10px] font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">STANDARD BOT</span>
                             <span class="text-xs font-mono text-emerald-400 font-bold">3 GB RAM</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mt-3">Paket Pro Bot</h3>
+                        <h3 data-i18n="planProTitle" class="text-lg font-bold text-white mt-3">Paket Pro Bot</h3>
                         <div class="mt-2 mb-3">
                             <span class="text-2xl font-extrabold text-white font-mono">Rp 12.000</span>
                             <span class="text-xs text-pt-text">/ bulan</span>
                         </div>
-                        <p class="text-xs text-pt-text leading-relaxed">Sangat cocok untuk Discord Bot, Telegram Bot & API Server.</p>
+                        <p data-i18n="planProDesc" class="text-xs text-pt-text leading-relaxed">Sangat cocok untuk Discord Bot, Telegram Bot & API Server.</p>
                         
                         <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 3 GB RAM DDR4</li>
@@ -355,7 +364,7 @@
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Dedicated IP Port</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal('pro')" class="mt-6 w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-lg transition-all shadow-md">
+                    <button onclick="openOrderModal('pro')" data-i18n="btnSelectPlan12" class="mt-6 w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-lg transition-all shadow-md">
                         Pilih Paket Rp 12.000
                     </button>
                 </div>
@@ -367,12 +376,12 @@
                             <span class="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">HEAVY BOT</span>
                             <span class="text-xs font-mono text-emerald-400 font-bold">6 GB RAM</span>
                         </div>
-                        <h3 class="text-lg font-bold text-white mt-3">Paket Monster Bot</h3>
+                        <h3 data-i18n="planMonsterTitle" class="text-lg font-bold text-white mt-3">Paket Monster Bot</h3>
                         <div class="mt-2 mb-3">
                             <span class="text-2xl font-extrabold text-white font-mono">Rp 20.000</span>
                             <span class="text-xs text-pt-text">/ bulan</span>
                         </div>
-                        <p class="text-xs text-pt-text leading-relaxed">Untuk Bot skala besar dengan ribuan user atau game server.</p>
+                        <p data-i18n="planMonsterDesc" class="text-xs text-pt-text leading-relaxed">Untuk Bot skala besar dengan ribuan user atau game server.</p>
                         
                         <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 6 GB RAM High Speed</li>
@@ -381,7 +390,7 @@
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Priority 24/7 Node</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal('monster')" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
+                    <button onclick="openOrderModal('monster')" data-i18n="btnSelectPlan20" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
                         Pilih Paket Rp 20.000
                     </button>
                 </div>
@@ -393,12 +402,12 @@
                             <span class="text-[10px] font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">UNLIMITED</span>
                             <span class="text-xs font-mono text-emerald-400 font-bold">12 GB RAM</span>
                         </div>
-                        <h3 class="text-base font-bold text-white mt-3">Paket Extreme Node</h3>
+                        <h3 data-i18n="planExtremeTitle" class="text-base font-bold text-white mt-3">Paket Extreme Node</h3>
                         <div class="mt-2 mb-3">
                             <span class="text-2xl font-extrabold text-white font-mono">Rp 30.000</span>
                             <span class="text-xs text-pt-text">/ bulan</span>
                         </div>
-                        <p class="text-xs text-pt-text leading-relaxed">Resource tanpa batas untuk enterprise & multi-bot hosting.</p>
+                        <p data-i18n="planExtremeDesc" class="text-xs text-pt-text leading-relaxed">Resource tanpa batas untuk enterprise & multi-bot hosting.</p>
                         
                         <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 12 GB RAM Speed DDR4</li>
@@ -407,58 +416,13 @@
                             <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Custom Domain Support</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal('extreme')" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
+                    <button onclick="openOrderModal('extreme')" data-i18n="btnSelectPlan30" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
                         Pilih Paket Rp 30.000
                     </button>
                 </div>
             </div>
         </section>
 
-    </main>
-
-    <!-- ==================== VIEW 3: ADMIN PANEL ==================== -->
-    <main id="view-admin" class="hidden flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
-        <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 bg-pt-card border border-pt-border p-5 rounded-xl">
-            <div>
-                <h1 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-user-shield text-purple-400"></i> SkyHost Admin Access Control
-                </h1>
-                <p class="text-xs text-pt-text mt-1">Kelola permohonan pesanan bot server, atur tanggal kedaluwarsa (expired), edit alokasi spesifikasi, serta masuk langsung ke panel customer.</p>
-            </div>
-            <div class="flex items-center gap-3 font-mono text-xs">
-                <span class="bg-pt-input px-3 py-1.5 rounded border border-pt-border text-slate-300">
-                    Total Server: <strong id="admin-stat-total" class="text-cyan-400">0</strong>
-                </span>
-                <span class="bg-pt-input px-3 py-1.5 rounded border border-pt-border text-slate-300">
-                    Menunggu Aktivasi: <strong id="admin-stat-pending" class="text-amber-400">0</strong>
-                </span>
-            </div>
-        </div>
-
-        <div class="bg-pt-card border border-pt-border rounded-xl overflow-hidden">
-            <div class="p-4 border-b border-pt-border flex justify-between items-center">
-                <h2 class="text-xs font-bold text-white uppercase tracking-wider">Master Control - Daftar Seluruh Server Customer</h2>
-                <span class="text-[11px] text-slate-400 font-mono">SkyHost Master Node v2.0</span>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs font-mono">
-                    <thead class="bg-pt-header text-slate-400 border-b border-pt-border">
-                        <tr>
-                            <th class="p-3">ID & Nama Bot</th>
-                            <th class="p-3">User Pemesan</th>
-                            <th class="p-3">Spesifikasi & Node</th>
-                            <th class="p-3">Masa Aktif / Expired</th>
-                            <th class="p-3">Status</th>
-                            <th class="p-3 text-right">Aksi Super Admin</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-servers-table" class="divide-y divide-pt-border text-slate-300">
-                        <!-- Admin Server List dynamically rendered -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </main>
 
     <!-- ==================== VIEW 2: PTERODACTYL CONTROL PANEL ==================== -->
@@ -746,6 +710,51 @@
         </div>
     </div>
 
+    <!-- ==================== VIEW 3: ADMIN PANEL ==================== -->
+    <main id="view-admin" class="hidden flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+        <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 bg-pt-card border border-pt-border p-5 rounded-xl">
+            <div>
+                <h1 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-purple-400"></i> SkyHost Admin Access Control
+                </h1>
+                <p class="text-xs text-pt-text mt-1">Kelola permohonan pesanan bot server, atur tanggal kedaluwarsa (expired), edit alokasi spesifikasi, serta masuk langsung ke panel customer.</p>
+            </div>
+            <div class="flex items-center gap-3 font-mono text-xs">
+                <span class="bg-pt-input px-3 py-1.5 rounded-lg border border-pt-border text-slate-300">
+                    Total Order: <strong id="admin-stat-total" class="text-cyan-400">0</strong>
+                </span>
+                <span class="bg-pt-input px-3 py-1.5 rounded-lg border border-pt-border text-slate-300">
+                    Menunggu Aktivasi: <strong id="admin-stat-pending" class="text-amber-400">0</strong>
+                </span>
+            </div>
+        </div>
+
+        <div class="bg-pt-card border border-pt-border rounded-xl overflow-hidden">
+            <div class="p-4 border-b border-pt-border flex justify-between items-center">
+                <h2 class="text-xs font-bold text-white uppercase tracking-wider">Daftar Permohonan & Server User</h2>
+                <span class="text-[11px] text-slate-400 font-mono">SkyHost Master Node v2.0</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs font-mono">
+                    <thead class="bg-pt-header text-slate-400 border-b border-pt-border">
+                        <tr>
+                            <th class="p-3">Nama Bot / ID</th>
+                            <th class="p-3">Pemesan</th>
+                            <th class="p-3">Spesifikasi / IP</th>
+                            <th class="p-3">Tanggal Expired</th>
+                            <th class="p-3">Status</th>
+                            <th class="p-3 text-right">Aksi Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-servers-table" class="divide-y divide-pt-border text-slate-300">
+                        <!-- Admin Server List dynamically rendered -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
     <!-- ==================== LARGE CODE EDITOR MODAL ==================== -->
     <div id="modal-code-editor" class="fixed inset-0 bg-black/90 backdrop-blur-md z-50 hidden flex flex-col p-4 md:p-6">
         <div class="bg-pt-card border border-pt-border rounded-xl flex-grow flex flex-col overflow-hidden shadow-2xl">
@@ -761,6 +770,9 @@
                 <div class="flex items-center gap-2">
                     <button onclick="copyEditorContent()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white text-xs font-mono rounded flex items-center gap-1.5 transition-colors">
                         <i class="fa-solid fa-copy"></i> Salin Script
+                    </button>
+                    <button onclick="deleteCurrentEditorFile()" class="px-3 py-1.5 bg-red-600/80 hover:bg-red-600 text-white text-xs font-bold font-mono rounded flex items-center gap-1.5 transition-colors">
+                        <i class="fa-solid fa-trash-can"></i> Hapus File
                     </button>
                     <button onclick="saveCurrentEditorFile()" class="px-4 py-1.5 bg-cyan-600 hover:bg-cyan-500 text-black text-xs font-bold font-mono rounded flex items-center gap-1.5 transition-colors shadow">
                         <i class="fa-solid fa-floppy-disk"></i> Simpan File
@@ -828,7 +840,7 @@
 
                 <div>
                     <label class="text-slate-300 font-medium block mb-1">Nama Bot / Server</label>
-                    <input id="order-name" type="text" required placeholder="Contoh: WA-Bot-Baileys / My-Web-App" class="w-full bg-pt-input border border-pt-border rounded-lg p-2.5 text-white outline-none focus:border-cyan-500">
+                    <input id="order-name" type="text" required placeholder="Contoh: My-Discord-Bot / Python-API" class="w-full bg-pt-input border border-pt-border rounded-lg p-2.5 text-white outline-none focus:border-cyan-500">
                 </div>
 
                 <div>
@@ -842,7 +854,7 @@
                 </div>
 
                 <div>
-                    <label class="text-slate-300 font-medium block mb-1">Tipe Engine / Runtime (Egg)</label>
+                    <label class="text-slate-300 font-medium block mb-1">Tipe Engine / Runtime</label>
                     <select id="order-runtime" class="w-full bg-pt-input border border-pt-border rounded-lg p-2.5 text-white outline-none focus:border-cyan-500">
                         <option value="nodejs20">🟢 Node.js 20 (Discord.js, Express, Bot Runtime)</option>
                         <option value="nodejs18">🟢 Node.js 18 (Legacy Node App)</option>
@@ -891,7 +903,7 @@
     <footer class="bg-pt-header border-t border-pt-border py-10 text-xs text-pt-text">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="space-y-3">
-                <h4 class="text-sm font-bold text-white uppercase tracking-wider">Layanan SkyHost</h4>
+                <h4 data-i18n="footerHeaderServices" class="text-sm font-bold text-white uppercase tracking-wider">Layanan SkyHost</h4>
                 <ul class="space-y-2 font-mono text-[11px] text-slate-400">
                     <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Discord Bot Hosting (Node.js/Py)</a></li>
                     <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Telegram Bot Hosting</a></li>
@@ -902,7 +914,7 @@
             </div>
 
             <div class="space-y-3">
-                <h4 class="text-sm font-bold text-white uppercase tracking-wider">SkyHost Platform</h4>
+                <h4 data-i18n="footerHeaderPlatform" class="text-sm font-bold text-white uppercase tracking-wider">SkyHost Platform</h4>
                 <ul class="space-y-2 font-mono text-[11px] text-slate-400">
                     <li><a href="javascript:void(0)" onclick="openOrderModal()" class="hover:text-cyan-400 transition-colors">Deploy Bot Instan</a></li>
                     <li><a href="javascript:void(0)" onclick="switchMainView('panel')" class="hover:text-cyan-400 transition-colors">Pterodactyl Control Panel</a></li>
@@ -912,11 +924,11 @@
             </div>
 
             <div class="space-y-3">
-                <h4 class="text-sm font-bold text-white uppercase tracking-wider">Metode Pembayaran</h4>
-                <p class="text-[11px] text-slate-400 leading-relaxed font-mono">
+                <h4 data-i18n="footerHeaderPayment" class="text-sm font-bold text-white uppercase tracking-wider">Metode Pembayaran</h4>
+                <p data-i18n="footerPaymentIndo" class="text-[11px] text-slate-400 leading-relaxed font-mono">
                     <strong>Pembayaran Indonesia:</strong> Direct QRIS All Payment (Gopay, OVO, Dana, ShopeePay, BCA, Mandiri, BRI).
                 </p>
-                <p class="text-[11px] text-slate-400 leading-relaxed font-mono">
+                <p data-i18n="footerPaymentConfirm" class="text-[11px] text-slate-400 leading-relaxed font-mono">
                     <strong>Konfirmasi Otomatis:</strong> Langsung diverifikasi Admin WA <strong class="text-emerald-400">0851-9552-0118</strong>.
                 </p>
             </div>
@@ -927,185 +939,270 @@
                 &copy; <span id="current-year">2026</span> SkyHost Cloud Platform. All Rights Reserved.
             </div>
             <div class="flex items-center gap-4 mt-2 md:mt-0">
-                <span class="hover:text-slate-300 cursor-pointer">Syarat & Ketentuan</span>
-                <span class="hover:text-slate-300 cursor-pointer">Kebijakan Privasi</span>
+                <span data-i18n="footerTerms" onclick="openTermsModal()" class="hover:text-slate-300 cursor-pointer">Syarat & Ketentuan</span>
+                <span data-i18n="footerPrivacy" onclick="openPrivacyModal()" class="hover:text-slate-300 cursor-pointer">Kebijakan Privasi</span>
             </div>
         </div>
     </footer>
 
+    <!-- MODAL: SYARAT & KETENTUAN (TERMS & CONDITIONS) -->
+    <div id="modal-terms" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-pt-card border border-pt-border rounded-xl max-w-2xl w-full p-6 space-y-4 shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-pt-border pb-3 flex-shrink-0">
+                <h3 id="terms-modal-title" class="font-bold text-white text-base flex items-center gap-2">
+                    <i class="fa-solid fa-file-contract text-cyan-400"></i> Syarat & Ketentuan Layanan SkyHost
+                </h3>
+                <button onclick="closeTermsModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="terms-modal-body" class="overflow-y-auto space-y-4 text-xs leading-relaxed text-slate-300 font-sans pr-2">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="border-t border-pt-border pt-3 flex justify-end flex-shrink-0">
+                <button onclick="closeTermsModal()" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
+                    Saya Mengerti
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: KEBIJAKAN PRIVASI (PRIVACY POLICY) -->
+    <div id="modal-privacy" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-pt-card border border-pt-border rounded-xl max-w-2xl w-full p-6 space-y-4 shadow-2xl max-h-[85vh] flex flex-col">
+            <div class="flex justify-between items-center border-b border-pt-border pb-3 flex-shrink-0">
+                <h3 id="privacy-modal-title" class="font-bold text-white text-base flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-emerald-400"></i> Kebijakan Privasi SkyHost
+                </h3>
+                <button onclick="closePrivacyModal()" class="text-slate-400 hover:text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div id="privacy-modal-body" class="overflow-y-auto space-y-4 text-xs leading-relaxed text-slate-300 font-sans pr-2">
+                <!-- Populated dynamically via JS -->
+            </div>
+
+            <div class="border-t border-pt-border pt-3 flex justify-end flex-shrink-0">
+                <button onclick="closePrivacyModal()" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT APPLICATION CODE -->
     <script>
         const DISCORD_CLIENT_ID = '1547033759314870333';
         const WA_ADMIN_PHONE = '6285195520118';
         const GOOGLE_CLIENT_ID = '890292694448-l4tdm7ah9sjIbn4aib3ruaeg5lrt998b.apps.googleusercontent.com';
 
-        let currentUser = JSON.parse(localStorage.getItem('skyhost_user')) || null;
         let googleTokenClient = null;
-
+        let currentUser = JSON.parse(localStorage.getItem('skyhost_user')) || null;
         let userServers = JSON.parse(localStorage.getItem('skyhost_servers')) || [];
         let currentServer = null;
         let activeEditingFileIndex = null;
+        let currentLang = localStorage.getItem('skyhost_lang') || 'ID';
 
         let chartCpu = null;
         let chartRam = null;
         let chartNet = null;
 
-        const nodePings = {
-            ID: { base: 12, flag: '🇮🇩', name: 'Indonesia', code: 'ID-Node-01', current: 12, ip: '103.186.201.' },
-            SG: { base: 18, flag: '🇸🇬', name: 'Singapore', code: 'SG-Node-01', current: 18, ip: '139.99.120.' },
-            US: { base: 180, flag: '🇺🇸', name: 'United States', code: 'US-Node-01', current: 180, ip: '104.21.58.' },
-            RU: { base: 210, flag: '🇷🇺', name: 'Russia', code: 'RU-Node-01', current: 210, ip: '185.220.101.' },
-            DE: { base: 165, flag: '🇩🇪', name: 'Germany', code: 'DE-Node-01', current: 165, ip: '162.55.89.' },
-            JP: { base: 75, flag: '🇯🇵', name: 'Japan', code: 'JP-Node-01', current: 75, ip: '150.95.132.' }
+        const translations = {
+            ID: {
+                heroBadgeTag: "HARGA MURAH",
+                heroBadgeSub: "Bot Hosting & Container Server mulai Rp 5.000/bln",
+                heroTitle: "SkyHost — Cloud Container & Hosting Bot High Performance",
+                heroDesc: "Host Discord.js, Telegram Bot, Python App, dan Node.js 24/7 tanpa mati. Ditenagai prosesor enterprise Intel Xeon / AMD EPYC dengan kontrol panel Pterodactyl instan.",
+                btnPlans: '<i class="fa-solid fa-layer-group"></i> Lihat Paket',
+                btnDeploy: 'Deploy Sekarang <i class="fa-solid fa-arrow-up-right-from-square text-xs text-cyan-400"></i>',
+                cardStarterTitle: "Bot Container",
+                cardStarterSub: "Mulai Rp 5.000/bln",
+                cardHeavyTitle: "Heavy Multi-Bot Node",
+                cardHeavySub: "Mulai Rp 20.000/bln",
+                statActiveUsers: "Pengguna Aktif",
+                statUptime: "Uptime SLA",
+                statNetwork: "Network Premium",
+                statInstant: "Aktif Instan",
+                secServers: "Server Bot Anda",
+                secPlansTag: "HARGA TERJANGKAU",
+                secPlansTitle: "Paket SkyHost Bot Hosting",
+                secPlansSub: "Pilih alokasi RAM & CPU sesuai kebutuhan bot Anda. Harga mulai Rp 5.000/bulan.",
+                planStarterTitle: "Paket Starter",
+                planStarterDesc: "Cocok untuk WhatsApp Bot kecil atau Telegram Bot.",
+                planProTitle: "Paket Pro Bot",
+                planProDesc: "Sangat cocok untuk Discord Bot, Telegram Bot & API Server.",
+                planMonsterTitle: "Paket Monster Bot",
+                planMonsterDesc: "Untuk Bot skala besar dengan ribuan user atau game server.",
+                planExtremeTitle: "Paket Extreme Node",
+                planExtremeDesc: "Resource tanpa batas untuk enterprise & multi-bot hosting.",
+                btnSelectPlan5: "Pilih Paket Rp 5.000",
+                btnSelectPlan12: "Pilih Paket Rp 12.000",
+                btnSelectPlan20: "Pilih Paket Rp 20.000",
+                btnSelectPlan30: "Pilih Paket Rp 30.000",
+                footerHeaderServices: "Layanan SkyHost",
+                footerHeaderPlatform: "SkyHost Platform",
+                footerHeaderPayment: "Metode Pembayaran",
+                footerPaymentIndo: "<strong>Pembayaran Indonesia:</strong> Direct QRIS All Payment (Gopay, OVO, Dana, ShopeePay, BCA, Mandiri, BRI).",
+                footerPaymentConfirm: "<strong>Konfirmasi Otomatis:</strong> Langsung diverifikasi Admin WA <strong class=\"text-emerald-400\">0851-9552-0118</strong>.",
+                footerTerms: "Syarat & Ketentuan",
+                footerPrivacy: "Kebijakan Privasi"
+            },
+            EN: {
+                heroBadgeTag: "CHEAP PRICE",
+                heroBadgeSub: "Bot Hosting & Container Server starting at Rp 5,000/mo",
+                heroTitle: "SkyHost — High Performance Cloud Container & Bot Hosting",
+                heroDesc: "Host Discord.js, Telegram Bot, Python App, and Node.js 24/7 with zero downtime. Powered by enterprise Intel Xeon / AMD EPYC processors with instant Pterodactyl control panel.",
+                btnPlans: '<i class="fa-solid fa-layer-group"></i> View Plans',
+                btnDeploy: 'Deploy Now <i class="fa-solid fa-arrow-up-right-from-square text-xs text-cyan-400"></i>',
+                cardStarterTitle: "Bot Container",
+                cardStarterSub: "Starting Rp 5,000/mo",
+                cardHeavyTitle: "Heavy Multi-Bot Node",
+                cardHeavySub: "Starting Rp 20,000/mo",
+                statActiveUsers: "Active Users",
+                statUptime: "Uptime SLA",
+                statNetwork: "Premium Network",
+                statInstant: "Instant Setup",
+                secServers: "Your Bot Servers",
+                secPlansTag: "AFFORDABLE RATES",
+                secPlansTitle: "SkyHost Bot Hosting Plans",
+                secPlansSub: "Choose RAM & CPU allocation based on your bot needs. Prices starting from Rp 5,000/month.",
+                planStarterTitle: "Starter Plan",
+                planStarterDesc: "Suitable for lightweight Telegram or WhatsApp bots.",
+                planProTitle: "Pro Bot Plan",
+                planProDesc: "Perfect for Discord Bots, Telegram Bots & API Servers.",
+                planMonsterTitle: "Monster Bot Plan",
+                planMonsterDesc: "For large-scale bots with thousands of users or game servers.",
+                planExtremeTitle: "Extreme Node Plan",
+                planExtremeDesc: "Unlimited resources for enterprise & multi-bot hosting.",
+                btnSelectPlan5: "Select Plan Rp 5,000",
+                btnSelectPlan12: "Select Plan Rp 12,000",
+                btnSelectPlan20: "Select Plan Rp 20,000",
+                btnSelectPlan30: "Select Plan Rp 30,000",
+                footerHeaderServices: "SkyHost Services",
+                footerHeaderPlatform: "SkyHost Platform",
+                footerHeaderPayment: "Payment Methods",
+                footerPaymentIndo: "<strong>Indonesia Payment:</strong> Direct QRIS All Payment (Gopay, OVO, Dana, ShopeePay, BCA, Mandiri, BRI).",
+                footerPaymentConfirm: "<strong>Automatic Confirmation:</strong> Directly verified by WA Admin <strong class=\"text-emerald-400\">0851-9552-0118</strong>.",
+                footerTerms: "Terms & Conditions",
+                footerPrivacy: "Privacy Policy"
+            }
         };
 
-        const planPresets = {
-            starter: { name: 'Paket Starter', price: 5000, ram: '1.00 GiB', cpu: '100%', disk: '5.00 GiB', ramMB: 1024, maxRam: '1.00 GiB' },
-            pro: { name: 'Paket Pro Bot', price: 12000, ram: '3.00 GiB', cpu: '200%', disk: '15.00 GiB', ramMB: 3072, maxRam: '3.00 GiB' },
-            monster: { name: 'Paket Monster Bot', price: 20000, ram: '6.00 GiB', cpu: '300%', disk: '30.00 GiB', ramMB: 6144, maxRam: '6.00 GiB' },
-            extreme: { name: 'Paket Extreme Node', price: 30000, ram: '12.00 GiB', cpu: '600%', disk: '60.00 GiB', ramMB: 12288, maxRam: '12.00 GiB' }
-        };
-
-        function initResourceCharts() {
-            const elCpu = document.getElementById('chartCpu');
-            const elRam = document.getElementById('chartRam');
-            const elNet = document.getElementById('chartNet');
-
-            if (!elCpu || !elRam || !elNet) return;
-
-            const ctxCpu = elCpu.getContext('2d');
-            const ctxRam = elRam.getContext('2d');
-            const ctxNet = elNet.getContext('2d');
-
-            const commonOptions = {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { display: false },
-                    y: { display: false, min: 0 }
-                },
-                elements: { point: { radius: 0 }, line: { tension: 0.3 } }
-            };
-
-            chartCpu = new Chart(ctxCpu, {
-                type: 'line',
-                data: { labels: Array(15).fill(''), datasets: [{ data: Array(15).fill(0), borderColor: '#06b6d4', backgroundColor: 'rgba(6,182,212,0.1)', fill: true }] },
-                options: commonOptions
-            });
-
-            chartRam = new Chart(ctxRam, {
-                type: 'line',
-                data: { labels: Array(15).fill(''), datasets: [{ data: Array(15).fill(0), borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true }] },
-                options: commonOptions
-            });
-
-            chartNet = new Chart(ctxNet, {
-                type: 'line',
-                data: { labels: Array(15).fill(''), datasets: [{ data: Array(15).fill(0), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true }] },
-                options: commonOptions
-            });
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('skyhost_lang', lang);
+            updateLangUI();
         }
 
-        function startResourceSimulation() {
-            setInterval(() => {
-                if (!currentServer || currentServer.status !== 'RUNNING') {
-                    updateMetricsUI(0, 0, 0, 0);
-                    return;
+        function updateLangUI() {
+            const btnId = document.getElementById('lang-btn-id');
+            const btnEn = document.getElementById('lang-btn-en');
+            if (btnId && btnEn) {
+                if (currentLang === 'ID') {
+                    btnId.className = "text-cyan-400 font-bold cursor-pointer transition-colors";
+                    btnEn.className = "text-slate-400 hover:text-white font-normal cursor-pointer transition-colors";
+                } else {
+                    btnId.className = "text-slate-400 hover:text-white font-normal cursor-pointer transition-colors";
+                    btnEn.className = "text-cyan-400 font-bold cursor-pointer transition-colors";
                 }
-
-                const cpuVal = (Math.random() * 15 + 2).toFixed(2);
-                const ramMB = Math.floor(Math.random() * 120 + 240);
-                const netIn = (Math.random() * 4 + 1).toFixed(2);
-                const netOut = (Math.random() * 6 + 2).toFixed(2);
-
-                updateMetricsUI(cpuVal, ramMB, netIn, netOut);
-            }, 2000);
-        }
-
-        function updateMetricsUI(cpu = 0, ramMB = 0, netIn = 0, netOut = 0) {
-            const cardUptimeBg = document.getElementById('card-uptime-bg');
-            const cardUptime = document.getElementById('card-uptime');
-            const cardCpu = document.getElementById('card-cpu');
-            const cardRam = document.getElementById('card-ram');
-            const cardNetIn = document.getElementById('card-net-in');
-            const cardNetOut = document.getElementById('card-net-out');
-
-            const valCpu = document.getElementById('chart-val-cpu');
-            const valRam = document.getElementById('chart-val-ram');
-            const valNet = document.getElementById('chart-val-net');
-
-            if (!currentServer || currentServer.status !== 'RUNNING') {
-                if (cardUptimeBg) cardUptimeBg.className = "w-10 h-10 rounded-lg bg-red-500/20 text-red-500 flex items-center justify-center text-base";
-                if (cardUptime) cardUptime.innerText = "Offline";
-                if (cardCpu) cardCpu.innerText = "0.00%";
-                if (cardRam) cardRam.innerText = `0 MiB / ${currentServer ? currentServer.maxRam : '3.00 GiB'}`;
-                if (cardNetIn) cardNetIn.innerText = "0.00 KiB";
-                if (cardNetOut) cardNetOut.innerText = "0.00 KiB";
-
-                if (valCpu) valCpu.innerText = "0.00%";
-                if (valRam) valRam.innerText = "0 MiB";
-                if (valNet) valNet.innerText = "0 KiB";
-
-                pushChartData(chartCpu, 0);
-                pushChartData(chartRam, 0);
-                pushChartData(chartNet, 0);
-                return;
             }
 
-            if (cardUptimeBg) cardUptimeBg.className = "w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base";
-            if (cardUptime) cardUptime.innerText = "Online";
-            if (cardCpu) cardCpu.innerText = `${cpu}%`;
-            if (cardRam) cardRam.innerText = `${ramMB} MiB / ${currentServer.maxRam}`;
-            if (cardNetIn) cardNetIn.innerText = `${netIn} KiB`;
-            if (cardNetOut) cardNetOut.innerText = `${netOut} KiB`;
-
-            if (valCpu) valCpu.innerText = `${cpu}%`;
-            if (valRam) valRam.innerText = `${ramMB} MiB`;
-            if (valNet) valNet.innerText = `${netIn} KiB`;
-
-            pushChartData(chartCpu, cpu);
-            pushChartData(chartRam, ramMB);
-            pushChartData(chartNet, netIn);
-        }
-
-        function pushChartData(chart, val) {
-            if (!chart) return;
-            chart.data.datasets[0].data.shift();
-            chart.data.datasets[0].data.push(val);
-            chart.update();
-        }
-
-        function openOrderModal(planKey = 'pro') {
-            if (!currentUser) {
-                openAuthModal();
-                return;
-            }
-            const modal = document.getElementById('modal-order');
-            if (modal) {
-                modal.classList.remove('hidden');
-                const userField = document.getElementById('order-username');
-                if (userField && currentUser) userField.value = currentUser.name;
-                const planSelect = document.getElementById('order-plan');
-                if (planSelect && planKey) planSelect.value = planKey;
-            }
-        }
-
-        function closeOrderModal() {
-            const modal = document.getElementById('modal-order');
-            if (modal) modal.classList.add('hidden');
-        }
-
-        function updateNodePings() {
-            Object.keys(nodePings).forEach(key => {
-                const node = nodePings[key];
-                const jitter = Math.floor(Math.random() * 6) - 2;
-                node.current = Math.max(5, node.base + jitter);
-
-                const opt = document.getElementById(`opt-node-${key}`);
-                if (opt) {
-                    opt.innerText = `${node.flag} ${node.name} (${node.current} ms)`;
+            const langDict = translations[currentLang] || translations.ID;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (langDict[key]) {
+                    el.innerHTML = langDict[key];
                 }
             });
+
+            renderLegalContent();
+            renderDashboardServers();
+        }
+
+        function openTermsModal() {
+            renderLegalContent();
+            document.getElementById('modal-terms').classList.remove('hidden');
+        }
+
+        function closeTermsModal() {
+            document.getElementById('modal-terms').classList.add('hidden');
+        }
+
+        function openPrivacyModal() {
+            renderLegalContent();
+            document.getElementById('modal-privacy').classList.remove('hidden');
+        }
+
+        function closePrivacyModal() {
+            document.getElementById('modal-privacy').classList.add('hidden');
+        }
+
+        function renderLegalContent() {
+            const termsTitle = document.getElementById('terms-modal-title');
+            const termsBody = document.getElementById('terms-modal-body');
+            const privacyTitle = document.getElementById('privacy-modal-title');
+            const privacyBody = document.getElementById('privacy-modal-body');
+
+            if (currentLang === 'ID') {
+                if (termsTitle) termsTitle.innerHTML = `<i class="fa-solid fa-file-contract text-cyan-400"></i> Syarat & Ketentuan Layanan SkyHost`;
+                if (termsBody) {
+                    termsBody.innerHTML = `
+                        <div class="space-y-3">
+                            <p class="text-slate-400">Selamat datang di <strong>SkyHost Platform</strong>. Dengan mendaftar, membeli, atau menggunakan layanan hosting container dan bot kami, Anda menyetujui syarat & ketentuan berikut:</p>
+                            <div class="bg-pt-input p-3 rounded-lg border border-pt-border">
+                                <h4 class="font-bold text-white text-xs mb-1">1. Penggunaan Layanan yang Diperbolehkan</h4>
+                                <p class="text-slate-300">SkyHost menyediakan alokasi server container untuk hosting Discord Bot, Telegram Bot, Python App, dan Node.js Service 24/7.</p>
+                            </div>
+                            <div class="bg-pt-input p-3 rounded-lg border border-pt-border">
+                                <h4 class="font-bold text-rose-400 text-xs mb-1">2. Aktivitas yang Dilarang Keras</h4>
+                                <ul class="list-disc list-inside space-y-1 text-slate-300">
+                                    <li>DDoS / DoS Attack, Network Flooding, atau Port Scanning.</li>
+                                    <li>Penambangan Kripto (Cryptomining / Bitcoin Mining).</li>
+                                    <li>Penyebaran Malware, Ransomware, Phishing, atau Trojan.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (privacyTitle) privacyTitle.innerHTML = `<i class="fa-solid fa-user-shield text-emerald-400"></i> Kebijakan Privasi SkyHost`;
+                if (privacyBody) {
+                    privacyBody.innerHTML = `
+                        <div class="space-y-3">
+                            <p class="text-slate-400">Di <strong>SkyHost Cloud Platform</strong>, privasi data pengguna adalah prioritas kami:</p>
+                            <div class="bg-pt-input p-3 rounded-lg border border-pt-border">
+                                <h4 class="font-bold text-white text-xs mb-1">1. Informasi yang Kami Kumpulkan</h4>
+                                <p class="text-slate-300">Kami mengumpulkan profil publik saat login OAuth Discord/Google (Nama, Email, Avatar).</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } else {
+                if (termsTitle) termsTitle.innerHTML = `<i class="fa-solid fa-file-contract text-cyan-400"></i> SkyHost Terms of Service`;
+                if (termsBody) {
+                    termsBody.innerHTML = `
+                        <div class="space-y-3">
+                            <p class="text-slate-400">Welcome to <strong>SkyHost Platform</strong>. By using our services, you agree to these terms:</p>
+                            <div class="bg-pt-input p-3 rounded-lg border border-pt-border">
+                                <h4 class="font-bold text-white text-xs mb-1">1. Permitted Usage</h4>
+                                <p class="text-slate-300">Isolated container instances for 24/7 Discord & Python Bot hosting.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                if (privacyTitle) privacyTitle.innerHTML = `<i class="fa-solid fa-user-shield text-emerald-400"></i> SkyHost Privacy Policy`;
+                if (privacyBody) {
+                    privacyBody.innerHTML = `
+                        <div class="space-y-3">
+                            <p class="text-slate-400">At <strong>SkyHost</strong>, your data privacy is paramount:</p>
+                            <div class="bg-pt-input p-3 rounded-lg border border-pt-border">
+                                <h4 class="font-bold text-white text-xs mb-1">1. Information Collected</h4>
+                                <p class="text-slate-300">Public profile details upon Discord or Google authentication.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
         }
 
         function isAdminUser(user) {
@@ -1116,7 +1213,7 @@
         }
 
         function getRemainingDays(expiresAtStr) {
-            if (!expiresAtStr) return { days: 30, text: '30 Hari', isExpired: false };
+            if (!expiresAtStr) return { days: 30, text: currentLang === 'EN' ? '30 Days' : '30 Hari', isExpired: false };
             const now = new Date();
             const exp = new Date(expiresAtStr);
             const diffTime = exp - now;
@@ -1125,13 +1222,13 @@
             if (diffDays <= 0) {
                 return { days: 0, text: 'EXPIRED', isExpired: true };
             }
-            return { days: diffDays, text: `${diffDays} Hari`, isExpired: false };
+            return { days: diffDays, text: `${diffDays} ${currentLang === 'EN' ? 'Days' : 'Hari'}`, isExpired: false };
         }
 
         function formatDateReadable(dateStr) {
             if (!dateStr) return '-';
             const d = new Date(dateStr);
-            return d.toLocaleDateString('id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
+            return d.toLocaleDateString(currentLang === 'EN' ? 'en-US' : 'id-ID', { year: 'numeric', month: 'short', day: 'numeric' });
         }
 
         function addDaysToDate(days) {
@@ -1181,8 +1278,8 @@
 
                 if (accessToken) {
                     Swal.fire({
-                        title: 'Menghubungkan Akun Discord...',
-                        text: 'Mengambil profil dari Discord API',
+                        title: currentLang === 'EN' ? 'Connecting Discord Account...' : 'Menghubungkan Akun Discord...',
+                        text: currentLang === 'EN' ? 'Fetching profile from Discord API' : 'Mengambil profil dari Discord API',
                         allowOutsideClick: false,
                         didOpen: () => { Swal.showLoading(); },
                         background: '#121824',
@@ -1212,8 +1309,8 @@
                             window.history.replaceState(null, null, window.location.pathname);
 
                             Swal.fire({
-                                title: 'Otorisasi Discord Berhasil!',
-                                text: `Selamat datang, ${currentUser.name}!`,
+                                title: currentLang === 'EN' ? 'Discord OAuth Successful!' : 'Otorisasi Discord Berhasil!',
+                                text: `${currentLang === 'EN' ? 'Welcome' : 'Selamat datang'}, ${currentUser.name}!`,
                                 icon: 'success',
                                 background: '#121824',
                                 color: '#fff',
@@ -1222,7 +1319,7 @@
                         }
                     })
                     .catch(() => {
-                        Swal.fire('Gagal Login', 'Gagal memproses token Discord.', 'error');
+                        Swal.fire(currentLang === 'EN' ? 'Login Failed' : 'Gagal Login', 'Discord token error.', 'error');
                     });
                 }
             }
@@ -1230,7 +1327,7 @@
 
         function startGoogleLogin() {
             if (!window.google || !google.accounts || !google.accounts.oauth2) {
-                Swal.fire('Google Login', 'Layanan Google belum siap. Coba beberapa saat lagi.', 'warning');
+                Swal.fire('Google Login', 'Google service not ready yet.', 'warning');
                 return;
             }
 
@@ -1264,8 +1361,8 @@
                 closeAuthModal();
 
                 Swal.fire({
-                    title: 'Login Google Berhasil!',
-                    text: `Selamat datang, ${currentUser.name}!`,
+                    title: 'Google Login Success!',
+                    text: `Welcome, ${currentUser.name}!`,
                     icon: 'success',
                     background: '#121824',
                     color: '#fff',
@@ -1276,7 +1373,6 @@
 
         function updateAuthUI() {
             const authSection = document.getElementById('user-auth-section');
-
             updateNavVisibility();
 
             if (!authSection) return;
@@ -1343,8 +1439,8 @@
         function switchMainView(viewId) {
             if (viewId === 'admin' && !isAdminUser(currentUser)) {
                 Swal.fire({
-                    title: 'Akses Ditolak',
-                    text: 'Admin Panel hanya dapat diakses oleh akun Discord @brody201109.',
+                    title: 'Access Denied',
+                    text: 'Admin Panel can only be accessed by Discord account @brody201109.',
                     icon: 'error',
                     background: '#121824',
                     color: '#fff',
@@ -1360,8 +1456,8 @@
                 }
                 if (userServers.length === 0) {
                     Swal.fire({
-                        title: 'Tidak Ada Server',
-                        text: 'Anda harus membuat/memiliki bot server terlebih dahulu untuk mengakses Pterodactyl Panel.',
+                        title: currentLang === 'EN' ? 'No Servers Found' : 'Tidak Ada Server',
+                        text: currentLang === 'EN' ? 'You must create a bot server first.' : 'Anda harus membuat/memiliki bot server terlebih dahulu.',
                         icon: 'info',
                         background: '#121824',
                         color: '#fff',
@@ -1420,7 +1516,7 @@
 
             updateNavVisibility();
 
-            if (badge) badge.innerText = `${userServers.length} Server`;
+            if (badge) badge.innerText = `${userServers.length} ${currentLang === 'EN' ? 'Servers' : 'Server'}`;
 
             if (userServers.length === 0) {
                 container.innerHTML = `
@@ -1428,10 +1524,10 @@
                         <div class="w-12 h-12 rounded-full bg-pt-input flex items-center justify-center text-slate-500 text-xl mx-auto">
                             <i class="fa-solid fa-server"></i>
                         </div>
-                        <h3 class="text-white font-bold text-sm">Belum Ada Server Aktif</h3>
-                        <p class="text-xs text-pt-text max-w-sm mx-auto">Deploy server bot Discord atau Python Anda sekarang di Node global SkyHost.</p>
+                        <h3 class="text-white font-bold text-sm">${currentLang === 'EN' ? 'No Active Servers Yet' : 'Belum Ada Server Aktif'}</h3>
+                        <p class="text-xs text-pt-text max-w-sm mx-auto">${currentLang === 'EN' ? 'Deploy your Discord or Python bot server now on SkyHost global nodes.' : 'Deploy server bot Discord atau Python Anda sekarang di Node global SkyHost.'}</p>
                         <button onclick="openOrderModal()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all shadow-md">
-                            <i class="fa-solid fa-plus mr-1"></i> Buat Server Sekarang
+                            <i class="fa-solid fa-plus mr-1"></i> ${currentLang === 'EN' ? 'Create Server Now' : 'Buat Server Sekarang'}
                         </button>
                     </div>
                 `;
@@ -1445,7 +1541,7 @@
 
                 let statusBadge = '';
                 if (!isApproved) {
-                    statusBadge = `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[10px] px-2 py-0.5 rounded font-bold">MENUNGGU AKTIVASI</span>`;
+                    statusBadge = `<span class="bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[10px] px-2 py-0.5 rounded font-bold">${currentLang === 'EN' ? 'PENDING ACTIVATION' : 'MENUNGGU AKTIVASI'}</span>`;
                 } else if (isSuspended) {
                     statusBadge = `<span class="bg-purple-500/10 text-purple-400 border border-purple-500/30 text-[10px] px-2 py-0.5 rounded font-bold">SUSPENDED</span>`;
                 } else if (rem.isExpired) {
@@ -1475,7 +1571,7 @@
                                 <div><span class="text-slate-500">CPU:</span> ${server.cpu}</div>
                                 <div><span class="text-slate-500">Disk:</span> ${server.disk}</div>
                                 <div class="col-span-2 flex justify-between border-t border-pt-border/50 pt-1.5 mt-1">
-                                    <span class="text-slate-500">Kedaluwarsa:</span>
+                                    <span class="text-slate-500">${currentLang === 'EN' ? 'Expiration:' : 'Kedaluwarsa:'}</span>
                                     <span class="${rem.isExpired ? 'text-rose-400 font-bold' : 'text-emerald-400 font-bold'}">
                                         ${formatDateReadable(server.expiresAt)} (${rem.text})
                                     </span>
@@ -1486,11 +1582,11 @@
                         <div class="pt-2 flex gap-2">
                             ${(isApproved && !isSuspended) ? `
                                 <button onclick="selectServerAndOpenPanel('${server.id}')" class="flex-1 py-2 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all flex items-center justify-center gap-1.5 shadow">
-                                    <i class="fa-solid fa-terminal"></i> Buka Panel Control
+                                    <i class="fa-solid fa-terminal"></i> ${currentLang === 'EN' ? 'Open Control Panel' : 'Buka Panel Control'}
                                 </button>
                             ` : `
                                 <a href="https://wa.me/${WA_ADMIN_PHONE}" target="_blank" class="flex-1 py-2 bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs rounded-lg transition-all text-center block">
-                                    <i class="fa-brands fa-whatsapp mr-1"></i> Hubungi Admin WA
+                                    <i class="fa-brands fa-whatsapp mr-1"></i> ${currentLang === 'EN' ? 'Contact WA Admin' : 'Hubungi Admin WA'}
                                 </a>
                             `}
                             <button onclick="deleteServerByUser('${server.id}')" title="Hapus Server / Panel" class="px-3 py-2 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white font-bold text-xs rounded-lg transition-all border border-red-500/30 flex items-center justify-center">
@@ -1504,14 +1600,14 @@
 
         function deleteServerByUser(serverId) {
             Swal.fire({
-                title: 'Hapus Server ini?',
-                text: 'Aksi ini akan menghentikan container & menghapus data file secara permanen.',
+                title: currentLang === 'EN' ? 'Delete this server?' : 'Hapus Server ini?',
+                text: currentLang === 'EN' ? 'This action will permanently stop container and remove all files.' : 'Aksi ini akan menghentikan container & menghapus data file secara permanen.',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#ef4444',
                 cancelButtonColor: '#334155',
-                confirmButtonText: 'Ya, Hapus Permanent',
-                cancelButtonText: 'Batal',
+                confirmButtonText: currentLang === 'EN' ? 'Yes, Delete Permanently' : 'Ya, Hapus Permanent',
+                cancelButtonText: currentLang === 'EN' ? 'Cancel' : 'Batal',
                 background: '#121824',
                 color: '#fff'
             }).then(result => {
@@ -1525,8 +1621,8 @@
                     renderDashboardServers();
                     renderAdminPanel();
                     Swal.fire({
-                        title: 'Berhasil Dihapus',
-                        text: 'Server dan panel telah dihapus.',
+                        title: currentLang === 'EN' ? 'Deleted Successfully' : 'Berhasil Dihapus',
+                        text: currentLang === 'EN' ? 'Server and panel removed.' : 'Server dan panel telah dihapus.',
                         icon: 'success',
                         background: '#121824',
                         color: '#fff'
@@ -1913,8 +2009,8 @@
             const table = document.getElementById('files-table-body');
             if (!table) return;
 
-            if (!currentServer || !currentServer.files) {
-                table.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500">Tidak ada file.</td></tr>`;
+            if (!currentServer || !currentServer.files || currentServer.files.length === 0) {
+                table.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-slate-500 font-mono">Folder kosong / tidak ada file.</td></tr>`;
                 return;
             }
 
@@ -1926,11 +2022,60 @@
                     </td>
                     <td class="p-3 text-slate-400">${f.size || '1.0 KiB'}</td>
                     <td class="p-3 text-slate-400">${f.time || 'Just now'}</td>
-                    <td class="p-3 text-right" onclick="event.stopPropagation()">
-                        <button onclick="openCodeEditor(${idx})" class="text-cyan-400 hover:text-white px-2 py-1"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                    <td class="p-3 text-right space-x-1" onclick="event.stopPropagation()">
+                        <button onclick="openCodeEditor(${idx})" class="text-cyan-400 hover:text-white px-2 py-1 rounded hover:bg-slate-800 transition-colors" title="Edit File">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                        </button>
+                        <button onclick="deleteFileFromManager(${idx})" class="text-red-400 hover:text-red-300 px-2 py-1 rounded hover:bg-slate-800 transition-colors" title="Hapus File">
+                            <i class="fa-solid fa-trash-can"></i> Hapus
+                        </button>
                     </td>
                 </tr>
             `).join('');
+        }
+
+        function deleteFileFromManager(fileIndex) {
+            if (!currentServer || !currentServer.files || !currentServer.files[fileIndex]) return;
+            const fileName = currentServer.files[fileIndex].name;
+
+            Swal.fire({
+                title: currentLang === 'EN' ? `Delete file ${fileName}?` : `Hapus file ${fileName}?`,
+                text: currentLang === 'EN' ? 'This file will be permanently removed from container storage.' : 'Berkas ini akan dihapus secara permanen dari penyimpanan container.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#334155',
+                confirmButtonText: currentLang === 'EN' ? 'Yes, Delete' : 'Ya, Hapus',
+                cancelButtonText: currentLang === 'EN' ? 'Cancel' : 'Batal',
+                background: '#121824',
+                color: '#fff'
+            }).then(result => {
+                if (result.isConfirmed) {
+                    currentServer.files.splice(fileIndex, 1);
+                    persistServers();
+                    renderFilesTable();
+                    if (activeEditingFileIndex === fileIndex) {
+                        closeCodeEditor();
+                    }
+                    Swal.fire({
+                        title: currentLang === 'EN' ? 'File Deleted' : 'File Dihapus',
+                        text: `Berkas ${fileName} berhasil dihapus.`,
+                        icon: 'success',
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 2000,
+                        background: '#121824',
+                        color: '#fff'
+                    });
+                }
+            });
+        }
+
+        function deleteCurrentEditorFile() {
+            if (activeEditingFileIndex !== null) {
+                deleteFileFromManager(activeEditingFileIndex);
+            }
         }
 
         function createNewFilePrompt() {
@@ -2075,6 +2220,165 @@
             }
         }
 
+        function openOrderModal(planKey = 'pro') {
+            if (!currentUser) {
+                openAuthModal();
+                return;
+            }
+            const modal = document.getElementById('modal-order');
+            if (modal) {
+                modal.classList.remove('hidden');
+                const userField = document.getElementById('order-username');
+                if (userField && currentUser) userField.value = currentUser.name;
+                const planSelect = document.getElementById('order-plan');
+                if (planSelect && planKey) planSelect.value = planKey;
+            }
+        }
+
+        function closeOrderModal() {
+            const modal = document.getElementById('modal-order');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        const nodePings = {
+            ID: { base: 12, flag: '🇮🇩', name: 'Indonesia', code: 'ID-Node-01', current: 12, ip: '103.186.201.' },
+            SG: { base: 18, flag: '🇸🇬', name: 'Singapore', code: 'SG-Node-01', current: 18, ip: '139.99.120.' },
+            US: { base: 180, flag: '🇺🇸', name: 'United States', code: 'US-Node-01', current: 180, ip: '104.21.58.' },
+            RU: { base: 210, flag: '🇷🇺', name: 'Russia', code: 'RU-Node-01', current: 210, ip: '185.220.101.' },
+            DE: { base: 165, flag: '🇩🇪', name: 'Germany', code: 'DE-Node-01', current: 165, ip: '162.55.89.' },
+            JP: { base: 75, flag: '🇯🇵', name: 'Japan', code: 'JP-Node-01', current: 75, ip: '150.95.132.' }
+        };
+
+        const planPresets = {
+            starter: { name: 'Paket Starter', price: 5000, ram: '1.00 GiB', cpu: '100%', disk: '5.00 GiB', ramMB: 1024, maxRam: '1.00 GiB' },
+            pro: { name: 'Paket Pro Bot', price: 12000, ram: '3.00 GiB', cpu: '200%', disk: '15.00 GiB', ramMB: 3072, maxRam: '3.00 GiB' },
+            monster: { name: 'Paket Monster Bot', price: 20000, ram: '6.00 GiB', cpu: '300%', disk: '30.00 GiB', ramMB: 6144, maxRam: '6.00 GiB' },
+            extreme: { name: 'Paket Extreme Node', price: 30000, ram: '12.00 GiB', cpu: '600%', disk: '60.00 GiB', ramMB: 12288, maxRam: '12.00 GiB' }
+        };
+
+        function updateNodePings() {
+            Object.keys(nodePings).forEach(key => {
+                const node = nodePings[key];
+                const jitter = Math.floor(Math.random() * 6) - 2;
+                node.current = Math.max(5, node.base + jitter);
+
+                const opt = document.getElementById(`opt-node-${key}`);
+                if (opt) {
+                    opt.innerText = `${node.flag} ${node.name} (${node.current} ms)`;
+                }
+            });
+        }
+
+        function initResourceCharts() {
+            const elCpu = document.getElementById('chartCpu');
+            const elRam = document.getElementById('chartRam');
+            const elNet = document.getElementById('chartNet');
+
+            if (!elCpu || !elRam || !elNet) return;
+
+            const ctxCpu = elCpu.getContext('2d');
+            const ctxRam = elRam.getContext('2d');
+            const ctxNet = elNet.getContext('2d');
+
+            const commonOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { display: false },
+                    y: { display: false, min: 0 }
+                },
+                elements: { point: { radius: 0 }, line: { tension: 0.3 } }
+            };
+
+            chartCpu = new Chart(ctxCpu, {
+                type: 'line',
+                data: { labels: Array(15).fill(''), datasets: [{ data: Array(15).fill(0), borderColor: '#06b6d4', backgroundColor: 'rgba(6,182,212,0.1)', fill: true }] },
+                options: commonOptions
+            });
+
+            chartRam = new Chart(ctxRam, {
+                type: 'line',
+                data: { labels: Array(15).fill(''), datasets: [{ data: Array(15).fill(0), borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true }] },
+                options: commonOptions
+            });
+
+            chartNet = new Chart(ctxNet, {
+                type: 'line',
+                data: { labels: Array(15).fill(''), datasets: [{ data: Array(15).fill(0), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.1)', fill: true }] },
+                options: commonOptions
+            });
+        }
+
+        function startResourceSimulation() {
+            setInterval(() => {
+                if (!currentServer || currentServer.status !== 'RUNNING') {
+                    updateMetricsUI(0, 0, 0, 0);
+                    return;
+                }
+
+                const cpuVal = (Math.random() * 15 + 2).toFixed(2);
+                const ramMB = Math.floor(Math.random() * 120 + 240);
+                const netIn = (Math.random() * 4 + 1).toFixed(2);
+                const netOut = (Math.random() * 6 + 2).toFixed(2);
+
+                updateMetricsUI(cpuVal, ramMB, netIn, netOut);
+            }, 2000);
+        }
+
+        function updateMetricsUI(cpu = 0, ramMB = 0, netIn = 0, netOut = 0) {
+            const cardUptimeBg = document.getElementById('card-uptime-bg');
+            const cardUptime = document.getElementById('card-uptime');
+            const cardCpu = document.getElementById('card-cpu');
+            const cardRam = document.getElementById('card-ram');
+            const cardNetIn = document.getElementById('card-net-in');
+            const cardNetOut = document.getElementById('card-net-out');
+
+            const valCpu = document.getElementById('chart-val-cpu');
+            const valRam = document.getElementById('chart-val-ram');
+            const valNet = document.getElementById('chart-val-net');
+
+            if (!currentServer || currentServer.status !== 'RUNNING') {
+                if (cardUptimeBg) cardUptimeBg.className = "w-10 h-10 rounded-lg bg-red-500/20 text-red-500 flex items-center justify-center text-base";
+                if (cardUptime) cardUptime.innerText = "Offline";
+                if (cardCpu) cardCpu.innerText = "0.00%";
+                if (cardRam) cardRam.innerText = `0 MiB / ${currentServer ? currentServer.maxRam : '3.00 GiB'}`;
+                if (cardNetIn) cardNetIn.innerText = "0.00 KiB";
+                if (cardNetOut) cardNetOut.innerText = "0.00 KiB";
+
+                if (valCpu) valCpu.innerText = "0.00%";
+                if (valRam) valRam.innerText = "0 MiB";
+                if (valNet) valNet.innerText = "0 KiB";
+
+                pushChartData(chartCpu, 0);
+                pushChartData(chartRam, 0);
+                pushChartData(chartNet, 0);
+                return;
+            }
+
+            if (cardUptimeBg) cardUptimeBg.className = "w-10 h-10 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base";
+            if (cardUptime) cardUptime.innerText = "Online";
+            if (cardCpu) cardCpu.innerText = `${cpu}%`;
+            if (cardRam) cardRam.innerText = `${ramMB} MiB / ${currentServer.maxRam}`;
+            if (cardNetIn) cardNetIn.innerText = `${netIn} KiB`;
+            if (cardNetOut) cardNetOut.innerText = `${netOut} KiB`;
+
+            if (valCpu) valCpu.innerText = `${cpu}%`;
+            if (valRam) valRam.innerText = `${ramMB} MiB`;
+            if (valNet) valNet.innerText = `${netIn} KiB`;
+
+            pushChartData(chartCpu, cpu);
+            pushChartData(chartRam, ramMB);
+            pushChartData(chartNet, netIn);
+        }
+
+        function pushChartData(chart, val) {
+            if (!chart) return;
+            chart.data.datasets[0].data.shift();
+            chart.data.datasets[0].data.push(val);
+            chart.update();
+        }
+
         function handleOrderSubmit(e) {
             e.preventDefault();
             const username = document.getElementById('order-username').value.trim();
@@ -2170,6 +2474,7 @@
         window.onload = function() {
             checkDiscordOAuthHash();
             updateAuthUI();
+            updateLangUI();
             initResourceCharts();
             renderDashboardServers();
             renderAdminPanel();
