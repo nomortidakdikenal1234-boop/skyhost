@@ -325,223 +325,6 @@
                 <span class="font-bold text-white tracking-wide">Pterodactyl</span>
                 <span class="text-pt-text">|</span>
                 <span id="p-server-title" class="font-semibold text-blue-400">Pilih Server Terlebih Dahulu</span>
-                <span id="p-serv                        <span id="pending-badge" class="hidden bg-amber-500 text-black text-[9px] font-bold px-1.5 py-0.2 rounded-full">0</span>
-                    </button>
-                    <button onclick="openOrderModal()" class="px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all">
-                        <i class="fa-solid fa-server mr-1.5 text-amber-400"></i> Buat Bot Server
-                    </button>
-                </nav>
-            </div>
-
-            <!-- User Auth Controls -->
-            <div id="user-auth-section" class="flex items-center gap-3">
-                <!-- Dynamically rendered by JS -->
-            </div>
-        </div>
-    </header>
-
-    <!-- ==================== VIEW 1: CLIENT DASHBOARD ==================== -->
-    <main id="view-dashboard" class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
-        <div class="bg-gradient-to-r from-blue-900/40 via-pt-card to-pt-card border border-pt-border rounded-lg p-6 relative overflow-hidden">
-            <div class="relative z-10 max-w-2xl">
-                <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded">Cloud Hosting Platform</span>
-                <h1 class="text-2xl md:text-3xl font-bold text-white mt-2">Selamat Datang di SkyHost Portal</h1>
-                <p class="text-xs md:text-sm text-pt-text mt-2 leading-relaxed">
-                    Jalankan & host server bot Discord, WhatsApp (Baileys/WwebJS), Telegram, atau aplikasi Python/Node.js/Web dengan performa tinggi. Pilih lokasi server global langsung aktif setelah persetujuan admin.
-                </p>
-                <div class="flex items-center gap-3 mt-4">
-                    <button onclick="openOrderModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20">
-                        <i class="fa-solid fa-plus"></i> Deploy Server Baru
-                    </button>
-                </div>
-            </div>
-            <i class="fa-solid fa-server absolute right-6 -bottom-10 text-9xl text-white/5 pointer-events-none"></i>
-        </div>
-
-        <div>
-            <div class="flex items-center justify-between mb-4">
-                <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-blue-400"></i> Server Bot Anda
-                </h2>
-                <span id="server-count-badge" class="text-xs bg-pt-border text-pt-text px-2.5 py-0.5 rounded font-mono">0 Server</span>
-            </div>
-
-            <!-- Server Grid container -->
-            <div id="dashboard-servers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Dynamically populated or Empty State -->
-            </div>
-        </div>
-
-        <div>
-            <div class="mb-4">
-                <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                    <i class="fa-solid fa-cubes text-purple-400"></i> Paket SkyHost Bot Hosting
-                </h2>
-                <p class="text-xs text-pt-text mt-1">Pilih alokasi RAM & CPU sesuai kebutuhan bot Anda. Harga terjangkau mulai dari Rp 5.000/bulan.</p>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Plan 1: 5k -->
-                <div class="bg-pt-card border border-pt-border rounded-lg p-5 flex flex-col justify-between hover:border-blue-500/50 transition-all">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">STARTER BOT</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">1 GB RAM</span>
-                        </div>
-                        <h3 class="text-base font-bold text-white mt-3">Paket Starter</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-xl font-bold text-white font-mono">Rp 5.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p class="text-xs text-pt-text">Cocok untuk WhatsApp Bot kecil atau Telegram Bot.</p>
-                        
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1 GB RAM DDR4</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 5 GB NVMe SSD</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Anti DDOS Protection</li>
-                        </ul>
-                    </div>
-                    <button onclick="openOrderModal('starter')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
-                        Pilih Paket Rp 5.000
-                    </button>
-                </div>
-
-                <!-- Plan 2: 12k -->
-                <div class="bg-pt-card border border-blue-500/50 rounded-lg p-5 flex flex-col justify-between relative shadow-lg shadow-blue-500/5">
-                    <span class="absolute -top-2.5 right-4 bg-blue-600 text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider">PALING POPULER</span>
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">STANDARD BOT</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">3 GB RAM</span>
-                        </div>
-                        <h3 class="text-base font-bold text-white mt-3">Paket Pro Baileys</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-xl font-bold text-white font-mono">Rp 12.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p class="text-xs text-pt-text">Sangat cocok untuk WA Bot Multi-Device Baileys & Discord.</p>
-                        
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 3 GB RAM DDR4</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 2 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 15 GB NVMe SSD</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Dedicated IP Port</li>
-                        </ul>
-                    </div>
-                    <button onclick="openOrderModal('pro')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
-                        Pilih Paket Rp 12.000
-                    </button>
-                </div>
-
-                <!-- Plan 3: 20k -->
-                <div class="bg-pt-card border border-pt-border rounded-lg p-5 flex flex-col justify-between hover:border-blue-500/50 transition-all">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">HEAVY BOT</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">6 GB RAM</span>
-                        </div>
-                        <h3 class="text-base font-bold text-white mt-3">Paket Monster Bot</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-xl font-bold text-white font-mono">Rp 20.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p class="text-xs text-pt-text">Untuk Bot skala besar dengan ribuan user atau game server.</p>
-                        
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 6 GB RAM High Speed</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 3 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 30 GB NVMe SSD</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Priority 24/7 Node</li>
-                        </ul>
-                    </div>
-                    <button onclick="openOrderModal('monster')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
-                        Pilih Paket Rp 20.000
-                    </button>
-                </div>
-
-                <!-- Plan 4: 30k -->
-                <div class="bg-pt-card border border-pt-border rounded-lg p-5 flex flex-col justify-between hover:border-blue-500/50 transition-all">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded">UNLIMITED</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">12 GB RAM</span>
-                        </div>
-                        <h3 class="text-base font-bold text-white mt-3">Paket Extreme Node</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-xl font-bold text-white font-mono">Rp 30.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p class="text-xs text-pt-text">Resource tanpa batas untuk enterprise & multi-bot hosting.</p>
-                        
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 12 GB RAM Speed DDR4</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 6 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 60 GB NVMe High Speed</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Custom Domain Support</li>
-                        </ul>
-                    </div>
-                    <button onclick="openOrderModal('extreme')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
-                        Pilih Paket Rp 30.000
-                    </button>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- ==================== VIEW 3: ADMIN PANEL ==================== -->
-    <main id="view-admin" class="hidden flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
-        <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 bg-pt-card border border-pt-border p-5 rounded-lg">
-            <div>
-                <h1 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-user-shield text-purple-400"></i> SkyHost Admin Access Control
-                </h1>
-                <p class="text-xs text-pt-text mt-1">Kelola permohonan pesanan bot server, aktivasi panel pengguna, dan kontrol node server global.</p>
-            </div>
-            <div class="flex items-center gap-3 font-mono text-xs">
-                <span class="bg-pt-input px-3 py-1.5 rounded border border-pt-border text-slate-300">
-                    Total Order: <strong id="admin-stat-total" class="text-blue-400">0</strong>
-                </span>
-                <span class="bg-pt-input px-3 py-1.5 rounded border border-pt-border text-slate-300">
-                    Menunggu Aktivasi: <strong id="admin-stat-pending" class="text-amber-400">0</strong>
-                </span>
-            </div>
-        </div>
-
-        <div class="bg-pt-card border border-pt-border rounded-lg overflow-hidden">
-            <div class="p-4 border-b border-pt-border flex justify-between items-center">
-                <h2 class="text-xs font-bold text-white uppercase tracking-wider">Daftar Permohonan & Server User</h2>
-                <span class="text-[11px] text-slate-400 font-mono">SkyHost Master Node v1.8</span>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs font-mono">
-                    <thead class="bg-pt-header text-slate-400 border-b border-pt-border">
-                        <tr>
-                            <th class="p-3">ID Server</th>
-                            <th class="p-3">User Pemesan</th>
-                            <th class="p-3">Nama Bot</th>
-                            <th class="p-3">Lokasi / IP</th>
-                            <th class="p-3">Status Akses</th>
-                            <th class="p-3 text-right">Aksi Admin</th>
-                        </tr>
-                    </thead>
-                    <tbody id="admin-servers-table" class="divide-y divide-pt-border text-slate-300">
-                        <!-- Admin Server List dynamically rendered -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
-
-    <!-- ==================== VIEW 2: PTERODACTYL CONTROL PANEL ==================== -->
-    <div id="view-panel" class="hidden flex-grow flex-col">
-        <!-- Pterodactyl Top Banner -->
-        <div class="bg-pt-header border-b border-pt-border px-4 py-2.5 flex items-center justify-between text-xs">
-            <div class="flex items-center gap-3">
-                <span class="font-bold text-white tracking-wide">Pterodactyl</span>
-                <span class="text-pt-text">|</span>
-                <span id="p-server-title" class="font-semibold text-blue-400">Pilih Server Terlebih Dahulu</span>
                 <span id="p-server-id" class="text-pt-text font-mono text-[11px]">ID: -</span>
             </div>
             <div class="flex items-center gap-4 text-pt-text">
@@ -930,7 +713,7 @@
         Pterodactyl &copy; 2015 - <span id="current-year"></span>
     </footer>
 
-    <!-- MODAL: LOGIN / REGISTER (DISCORD & EMAIL) -->
+    <!-- MODAL: LOGIN (DISCORD & GOOGLE) -->
     <div id="modal-auth" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-pt-card border border-pt-border rounded-lg max-w-md w-full p-6 space-y-5 shadow-2xl">
             <div class="flex justify-between items-center border-b border-pt-border pb-3">
@@ -940,37 +723,17 @@
                 <button onclick="closeAuthModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
             </div>
 
-            <!-- Discord Direct Button -->
+            <!-- Discord Login -->
             <button type="button" onclick="startDiscordLogin()" class="w-full py-3 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold text-xs rounded transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-indigo-600/20 group">
                 <i class="fa-brands fa-discord text-lg group-hover:scale-110 transition-transform"></i>
                 Lanjutkan dengan Discord
             </button>
 
-            <!-- Fallback Mock Login if Client ID / Redirect URI is not configured -->
-            <button type="button" onclick="loginWithDiscordDemo()" class="w-full py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 text-[11px] font-mono rounded transition-all text-center">
-                <i class="fa-solid fa-flask mr-1"></i> Mode Cepat (Simulasi Profil Discord)
+            <!-- Google Login -->
+            <button type="button" onclick="startGoogleLogin()" class="w-full py-3 bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs rounded transition-all flex items-center justify-center gap-2.5 shadow-lg group">
+                <i class="fa-brands fa-google text-lg text-red-500 group-hover:scale-110 transition-transform"></i>
+                Lanjutkan dengan Google
             </button>
-
-            <div class="flex items-center gap-3 my-2">
-                <div class="h-px bg-pt-border flex-grow"></div>
-                <span class="text-[10px] text-slate-500 font-mono uppercase">atau email</span>
-                <div class="h-px bg-pt-border flex-grow"></div>
-            </div>
-
-            <!-- Email Login Form -->
-            <form onsubmit="handleEmailLogin(event)" class="space-y-3 text-xs">
-                <div>
-                    <label class="text-slate-300 font-medium block mb-1">Email / Username</label>
-                    <input id="auth-email" type="email" required placeholder="nama@domain.com" class="w-full bg-pt-input border border-pt-border rounded p-2.5 text-white outline-none focus:border-blue-500 font-mono">
-                </div>
-                <div>
-                    <label class="text-slate-300 font-medium block mb-1">Kata Sandi</label>
-                    <input id="auth-password" type="password" required placeholder="••••••••" class="w-full bg-pt-input border border-pt-border rounded p-2.5 text-white outline-none focus:border-blue-500 font-mono">
-                </div>
-                <button type="submit" class="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded transition-all">
-                    Masuk dengan Email
-                </button>
-            </form>
         </div>
     </div>
 
@@ -1058,6 +821,14 @@
 
         // User session state
         let currentUser = JSON.parse(localStorage.getItem('skyhost_user')) || null;
+        // Remove legacy email-login sessions from the old version.
+        if (currentUser && currentUser.provider === 'email') {
+            currentUser = null;
+            localStorage.removeItem('skyhost_user');
+        }
+
+        const GOOGLE_CLIENT_ID = '890292694448-l4tdm7ah9sjIbn4aib3ruaeg5lrt998b.apps.googleusercontent.com';
+        let googleTokenClient = null;
 
         // Server state
         let userServers = JSON.parse(localStorage.getItem('skyhost_servers')) || [];
@@ -1112,28 +883,6 @@
 
             console.log("Discord OAuth Target URL:", oauthUrl);
             window.location.assign(oauthUrl);
-        }
-
-        function loginWithDiscordDemo() {
-            currentUser = {
-                name: "@user_discord",
-                email: "user_discord@discord.com",
-                provider: "discord",
-                discordId: "123456789012345678",
-                avatar: "https://cdn.discordapp.com/embed/avatars/0.png"
-            };
-            localStorage.setItem('skyhost_user', JSON.stringify(currentUser));
-            updateAuthUI();
-            closeAuthModal();
-
-            Swal.fire({
-                title: 'Login Discord Berhasil!',
-                text: `Selamat datang, ${currentUser.name}!`,
-                icon: 'success',
-                background: '#18202c',
-                color: '#fff',
-                confirmButtonColor: '#5865F2'
-            });
         }
 
         function checkDiscordOAuthHash() {
@@ -1222,18 +971,93 @@
             }
         }
 
-        function startDiscordLogin() {
-            const clientId = "1547033759314870333";
-            const redirectUri = "https://nomortidakdikenal1234-boop.github.io/skyhost/";
+        function startGoogleLogin() {
+            if (!window.google || !google.accounts || !google.accounts.oauth2) {
+                Swal.fire({
+                    title: 'Google Login Belum Siap',
+                    text: 'Layanan Google Identity belum selesai dimuat. Coba lagi sebentar.',
+                    icon: 'warning',
+                    background: '#18202c',
+                    color: '#fff',
+                    confirmButtonColor: '#2563eb'
+                });
+                return;
+            }
 
-            const oauthUrl =
-                "https://discord.com/oauth2/authorize" +
-                "?client_id=" + encodeURIComponent(clientId) +
-                "&response_type=token" +
-                "&redirect_uri=" + encodeURIComponent(redirectUri) +
-                "&scope=" + encodeURIComponent("identify email");
+            if (!googleTokenClient) {
+                googleTokenClient = google.accounts.oauth2.initTokenClient({
+                    client_id: GOOGLE_CLIENT_ID,
+                    scope: 'openid email profile',
+                    callback: handleGoogleTokenResponse
+                });
+            }
 
-            window.location.href = oauthUrl;
+            googleTokenClient.requestAccessToken({ prompt: 'select_account' });
+        }
+
+        function handleGoogleTokenResponse(response) {
+            if (!response || !response.access_token) {
+                Swal.fire({
+                    title: 'Login Google Gagal',
+                    text: 'Google tidak memberikan access token.',
+                    icon: 'error',
+                    background: '#18202c',
+                    color: '#fff',
+                    confirmButtonColor: '#2563eb'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Menghubungkan Akun Google...',
+                text: 'Mengambil data profil Google',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); },
+                background: '#18202c',
+                color: '#fff'
+            });
+
+            fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+                headers: { Authorization: 'Bearer ' + response.access_token }
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Gagal mengambil profil Google');
+                return res.json();
+            })
+            .then(user => {
+                if (!user || !user.email) throw new Error('Profil Google tidak valid');
+
+                currentUser = {
+                    name: user.name || user.email.split('@')[0],
+                    email: user.email,
+                    provider: 'google',
+                    googleId: user.sub || '',
+                    avatar: user.picture || null
+                };
+
+                localStorage.setItem('skyhost_user', JSON.stringify(currentUser));
+                updateAuthUI();
+                closeAuthModal();
+
+                Swal.fire({
+                    title: 'Login Google Berhasil!',
+                    text: `Selamat datang, ${currentUser.name}!`,
+                    icon: 'success',
+                    background: '#18202c',
+                    color: '#fff',
+                    confirmButtonColor: '#4285F4'
+                });
+            })
+            .catch(() => {
+                Swal.fire({
+                    title: 'Gagal Mengambil Data Google',
+                    text: 'Terjadi kesalahan saat memproses akun Google.',
+                    icon: 'error',
+                    background: '#18202c',
+                    color: '#fff',
+                    confirmButtonColor: '#2563eb'
+                });
+            });
         }
 
         function openAuthModal() {
@@ -1244,31 +1068,6 @@
         function closeAuthModal() {
             const modal = document.getElementById('modal-auth');
             if (modal) modal.classList.add('hidden');
-        }
-
-        function handleEmailLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('auth-email').value.trim();
-            const username = email.split('@')[0];
-
-            currentUser = {
-                name: username,
-                email: email,
-                provider: 'email'
-            };
-
-            localStorage.setItem('skyhost_user', JSON.stringify(currentUser));
-            updateAuthUI();
-            closeAuthModal();
-
-            Swal.fire({
-                title: 'Login Berhasil!',
-                text: `Selamat datang, ${currentUser.name}!`,
-                icon: 'success',
-                background: '#18202c',
-                color: '#fff',
-                confirmButtonColor: '#2563eb'
-            });
         }
 
         function logoutUser() {
