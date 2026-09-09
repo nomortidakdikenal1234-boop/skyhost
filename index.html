@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- SweetAlert2 for Dialogs -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
         tailwind.config = {
@@ -107,6 +109,223 @@
                     <button onclick="switchMainView('admin')" id="nav-btn-admin" class="px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all flex items-center gap-1">
                         <i class="fa-solid fa-user-shield text-purple-400"></i> Admin Panel
                         <span id="pending-badge" class="hidden bg-amber-500 text-black text-[9px] font-bold px-1.5 py-0.2 rounded-full">0</span>
+                    </button>
+                    <button onclick="openOrderModal()" class="px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all">
+                        <i class="fa-solid fa-server mr-1.5 text-amber-400"></i> Buat Bot Server
+                    </button>
+                </nav>
+            </div>
+
+            <!-- User Auth Controls -->
+            <div id="user-auth-section" class="flex items-center gap-3">
+                <!-- Dynamically rendered by JS -->
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== VIEW 1: CLIENT DASHBOARD ==================== -->
+    <main id="view-dashboard" class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+        <div class="bg-gradient-to-r from-blue-900/40 via-pt-card to-pt-card border border-pt-border rounded-lg p-6 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-xs font-semibold uppercase tracking-wider text-blue-400 bg-blue-500/10 px-2.5 py-1 rounded">Cloud Hosting Platform</span>
+                <h1 class="text-2xl md:text-3xl font-bold text-white mt-2">Selamat Datang di SkyHost Portal</h1>
+                <p class="text-xs md:text-sm text-pt-text mt-2 leading-relaxed">
+                    Jalankan & host server bot Discord, WhatsApp (Baileys/WwebJS), Telegram, atau aplikasi Python/Node.js/Web dengan performa tinggi. Pilih lokasi server global langsung aktif setelah persetujuan admin.
+                </p>
+                <div class="flex items-center gap-3 mt-4">
+                    <button onclick="openOrderModal()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20">
+                        <i class="fa-solid fa-plus"></i> Deploy Server Baru
+                    </button>
+                </div>
+            </div>
+            <i class="fa-solid fa-server absolute right-6 -bottom-10 text-9xl text-white/5 pointer-events-none"></i>
+        </div>
+
+        <div>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-blue-400"></i> Server Bot Anda
+                </h2>
+                <span id="server-count-badge" class="text-xs bg-pt-border text-pt-text px-2.5 py-0.5 rounded font-mono">0 Server</span>
+            </div>
+
+            <!-- Server Grid container -->
+            <div id="dashboard-servers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Dynamically populated or Empty State -->
+            </div>
+        </div>
+
+        <div>
+            <div class="mb-4">
+                <h2 class="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                    <i class="fa-solid fa-cubes text-purple-400"></i> Paket SkyHost Bot Hosting
+                </h2>
+                <p class="text-xs text-pt-text mt-1">Pilih alokasi RAM & CPU sesuai kebutuhan bot Anda. Harga terjangkau mulai dari Rp 5.000/bulan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Plan 1: 5k -->
+                <div class="bg-pt-card border border-pt-border rounded-lg p-5 flex flex-col justify-between hover:border-blue-500/50 transition-all">
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">STARTER BOT</span>
+                            <span class="text-xs font-mono text-emerald-400 font-bold">1 GB RAM</span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mt-3">Paket Starter</h3>
+                        <div class="mt-2 mb-3">
+                            <span class="text-xl font-bold text-white font-mono">Rp 5.000</span>
+                            <span class="text-xs text-pt-text">/ bulan</span>
+                        </div>
+                        <p class="text-xs text-pt-text">Cocok untuk WhatsApp Bot kecil atau Telegram Bot.</p>
+                        
+                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1 GB RAM DDR4</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1 Core CPU Intel Xeon</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 5 GB NVMe SSD</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Anti DDOS Protection</li>
+                        </ul>
+                    </div>
+                    <button onclick="openOrderModal('starter')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
+                        Pilih Paket Rp 5.000
+                    </button>
+                </div>
+
+                <!-- Plan 2: 12k -->
+                <div class="bg-pt-card border border-blue-500/50 rounded-lg p-5 flex flex-col justify-between relative shadow-lg shadow-blue-500/5">
+                    <span class="absolute -top-2.5 right-4 bg-blue-600 text-[9px] font-bold text-white px-2 py-0.5 rounded uppercase tracking-wider">PALING POPULER</span>
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">STANDARD BOT</span>
+                            <span class="text-xs font-mono text-emerald-400 font-bold">3 GB RAM</span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mt-3">Paket Pro Baileys</h3>
+                        <div class="mt-2 mb-3">
+                            <span class="text-xl font-bold text-white font-mono">Rp 12.000</span>
+                            <span class="text-xs text-pt-text">/ bulan</span>
+                        </div>
+                        <p class="text-xs text-pt-text">Sangat cocok untuk WA Bot Multi-Device Baileys & Discord.</p>
+                        
+                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 3 GB RAM DDR4</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 2 Core CPU Intel Xeon</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 15 GB NVMe SSD</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Dedicated IP Port</li>
+                        </ul>
+                    </div>
+                    <button onclick="openOrderModal('pro')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
+                        Pilih Paket Rp 12.000
+                    </button>
+                </div>
+
+                <!-- Plan 3: 20k -->
+                <div class="bg-pt-card border border-pt-border rounded-lg p-5 flex flex-col justify-between hover:border-blue-500/50 transition-all">
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">HEAVY BOT</span>
+                            <span class="text-xs font-mono text-emerald-400 font-bold">6 GB RAM</span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mt-3">Paket Monster Bot</h3>
+                        <div class="mt-2 mb-3">
+                            <span class="text-xl font-bold text-white font-mono">Rp 20.000</span>
+                            <span class="text-xs text-pt-text">/ bulan</span>
+                        </div>
+                        <p class="text-xs text-pt-text">Untuk Bot skala besar dengan ribuan user atau game server.</p>
+                        
+                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 6 GB RAM High Speed</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 3 Core CPU Intel Xeon</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 30 GB NVMe SSD</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Priority 24/7 Node</li>
+                        </ul>
+                    </div>
+                    <button onclick="openOrderModal('monster')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
+                        Pilih Paket Rp 20.000
+                    </button>
+                </div>
+
+                <!-- Plan 4: 30k -->
+                <div class="bg-pt-card border border-pt-border rounded-lg p-5 flex flex-col justify-between hover:border-blue-500/50 transition-all">
+                    <div>
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-bold text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded">UNLIMITED</span>
+                            <span class="text-xs font-mono text-emerald-400 font-bold">12 GB RAM</span>
+                        </div>
+                        <h3 class="text-base font-bold text-white mt-3">Paket Extreme Node</h3>
+                        <div class="mt-2 mb-3">
+                            <span class="text-xl font-bold text-white font-mono">Rp 30.000</span>
+                            <span class="text-xs text-pt-text">/ bulan</span>
+                        </div>
+                        <p class="text-xs text-pt-text">Resource tanpa batas untuk enterprise & multi-bot hosting.</p>
+                        
+                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 12 GB RAM Speed DDR4</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 6 Core CPU Intel Xeon</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 60 GB NVMe High Speed</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Custom Domain Support</li>
+                        </ul>
+                    </div>
+                    <button onclick="openOrderModal('extreme')" class="mt-6 w-full py-2 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs rounded transition-all">
+                        Pilih Paket Rp 30.000
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== VIEW 3: ADMIN PANEL ==================== -->
+    <main id="view-admin" class="hidden flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+        <div class="flex flex-col md:flex-row justify-between md:items-center gap-4 bg-pt-card border border-pt-border p-5 rounded-lg">
+            <div>
+                <h1 class="text-xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-user-shield text-purple-400"></i> SkyHost Admin Access Control
+                </h1>
+                <p class="text-xs text-pt-text mt-1">Kelola permohonan pesanan bot server, aktivasi panel pengguna, dan kontrol node server global.</p>
+            </div>
+            <div class="flex items-center gap-3 font-mono text-xs">
+                <span class="bg-pt-input px-3 py-1.5 rounded border border-pt-border text-slate-300">
+                    Total Order: <strong id="admin-stat-total" class="text-blue-400">0</strong>
+                </span>
+                <span class="bg-pt-input px-3 py-1.5 rounded border border-pt-border text-slate-300">
+                    Menunggu Aktivasi: <strong id="admin-stat-pending" class="text-amber-400">0</strong>
+                </span>
+            </div>
+        </div>
+
+        <div class="bg-pt-card border border-pt-border rounded-lg overflow-hidden">
+            <div class="p-4 border-b border-pt-border flex justify-between items-center">
+                <h2 class="text-xs font-bold text-white uppercase tracking-wider">Daftar Permohonan & Server User</h2>
+                <span class="text-[11px] text-slate-400 font-mono">SkyHost Master Node v1.8</span>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs font-mono">
+                    <thead class="bg-pt-header text-slate-400 border-b border-pt-border">
+                        <tr>
+                            <th class="p-3">ID Server</th>
+                            <th class="p-3">User Pemesan</th>
+                            <th class="p-3">Nama Bot</th>
+                            <th class="p-3">Lokasi / IP</th>
+                            <th class="p-3">Status Akses</th>
+                            <th class="p-3 text-right">Aksi Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-servers-table" class="divide-y divide-pt-border text-slate-300">
+                        <!-- Admin Server List dynamically rendered -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== VIEW 2: PTERODACTYL CONTROL PANEL ==================== -->
+    <div id="view-panel" class="hidden flex-grow flex-col">
+        <!-- Pterodactyl Top Banner -->
+        <div class="bg-pt-header border-b border-pt-border px-4 py-2.5 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-3">
+                <span class="font-bold text-white tracking-wide">Pterodactyl</span>
+                <span class="text-pt-text">|</span>
+                <span id="p-server-title" class="font-semibold text-blue-400">Pilih Server Terlebih Dahulu</span>
+                <span id="p-serv                        <span id="pending-badge" class="hidden bg-amber-500 text-black text-[9px] font-bold px-1.5 py-0.2 rounded-full">0</span>
                     </button>
                     <button onclick="openOrderModal()" class="px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all">
                         <i class="fa-solid fa-server mr-1.5 text-amber-400"></i> Buat Bot Server
