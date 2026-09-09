@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyHost - Pterodactyl Hosting</title>
+    <title>SkyHosting</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -106,7 +106,8 @@
                     <button onclick="switchMainView('panel')" id="nav-btn-panel" class="px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all">
                         <i class="fa-solid fa-terminal mr-1.5 text-emerald-400"></i> Pterodactyl Panel
                     </button>
-                    <button onclick="switchMainView('admin')" id="nav-btn-admin" class="px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all flex items-center gap-1">
+                    <!-- Admin button hidden by default, shown only for @brody201109 -->
+                    <button onclick="switchMainView('admin')" id="nav-btn-admin" class="hidden px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all items-center gap-1">
                         <i class="fa-solid fa-user-shield text-purple-400"></i> Admin Panel
                         <span id="pending-badge" class="hidden bg-amber-500 text-black text-[9px] font-bold px-1.5 py-0.2 rounded-full">0</span>
                     </button>
@@ -528,14 +529,15 @@
                         <span class="text-slate-500">/</span> home <span class="text-slate-500">/</span> container <span class="text-slate-500">/</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="createNewDirectoryPrompt()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded">
+                        <input type="file" id="real-file-uploader" class="hidden" onchange="handleRealFileUpload(event)">
+                        <button onclick="createNewDirectoryPrompt()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded transition-all">
                             Create Directory
                         </button>
-                        <button onclick="uploadFileSimulated()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded">
-                            Upload
+                        <button onclick="document.getElementById('real-file-uploader').click()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-semibold rounded transition-all flex items-center gap-1">
+                            <i class="fa-solid fa-upload"></i> Upload
                         </button>
-                        <button onclick="createNewFilePrompt()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded">
-                            New File
+                        <button onclick="createNewFileModal()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition-all flex items-center gap-1 shadow-md shadow-blue-600/20">
+                            <i class="fa-solid fa-file-circle-plus"></i> New File
                         </button>
                     </div>
                 </div>
@@ -713,6 +715,53 @@
         Pterodactyl &copy; 2015 - <span id="current-year"></span>
     </footer>
 
+    <!-- MODAL: LARGE CODE / FILE EDITOR -->
+    <div id="modal-file-editor" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-pt-card border border-pt-border rounded-lg max-w-5xl w-full flex flex-col h-[88vh] shadow-2xl overflow-hidden">
+            <!-- Editor Header -->
+            <div class="bg-pt-header border-b border-pt-border px-4 py-3 flex items-center justify-between gap-3">
+                <div class="flex items-center gap-3 flex-1 min-w-0">
+                    <div class="w-8 h-8 rounded bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-code text-sm"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <input id="editor-file-name" type="text" oninput="updateEditorStats()" placeholder="Nama File (cth: index.js, main.py, bot.config.json)" class="w-full bg-pt-input border border-pt-border rounded px-3 py-1.5 text-white font-mono text-xs outline-none focus:border-blue-500">
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 shrink-0">
+                    <button onclick="copyEditorContent()" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-medium rounded transition-all flex items-center gap-1">
+                        <i class="fa-solid fa-copy"></i> <span class="hidden sm:inline">Salin</span>
+                    </button>
+                    <button onclick="saveFileFromEditor()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold rounded transition-all flex items-center gap-1.5 shadow-lg shadow-blue-600/30">
+                        <i class="fa-solid fa-floppy-disk"></i> Simpan File
+                    </button>
+                    <button onclick="closeFileEditorModal()" class="px-2.5 py-1.5 text-slate-400 hover:text-white transition-all text-sm ml-1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Editor Subbar -->
+            <div class="bg-pt-nav border-b border-pt-border px-4 py-1.5 flex justify-between items-center text-[11px] font-mono text-slate-400">
+                <span class="flex items-center gap-2">
+                    <i class="fa-solid fa-folder-tree text-slate-500"></i>
+                    /home/container/<span id="editor-path-filename" class="text-blue-400 font-bold">new_file.js</span>
+                </span>
+                <span id="editor-stats" class="text-slate-500">0 baris | 0 karakter</span>
+            </div>
+
+            <!-- Code Area -->
+            <div class="flex-1 relative bg-[#090d14] flex overflow-hidden">
+                <!-- Line Numbers -->
+                <div id="editor-line-numbers" class="w-12 py-3 bg-[#0d131c] text-slate-600 text-right pr-2.5 font-mono text-xs select-none border-r border-pt-border overflow-hidden leading-relaxed">
+                    1
+                </div>
+                <!-- Textarea Script Input -->
+                <textarea id="editor-textarea" oninput="updateEditorStats()" placeholder="// Tempelkan atau tulis script/kode bot Anda di sini..." spellcheck="false" class="flex-1 bg-transparent p-3 text-slate-200 font-mono text-xs leading-relaxed outline-none resize-none overflow-y-auto whitespace-pre leading-relaxed"></textarea>
+            </div>
+        </div>
+    </div>
+
     <!-- MODAL: LOGIN (DISCORD & GOOGLE) -->
     <div id="modal-auth" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
         <div class="bg-pt-card border border-pt-border rounded-lg max-w-md w-full p-6 space-y-5 shadow-2xl">
@@ -818,6 +867,17 @@
     <script>
         const DISCORD_CLIENT_ID = '1547033759314870333';
         const WA_ADMIN_PHONE = '6285195520118';
+
+        // Helper function to verify if logged in user is Discord Admin @brody201109
+        function isAdminUser(user) {
+            if (!user) return false;
+            if (user.provider !== 'discord') return false;
+            
+            const cleanName = (user.name || '').replace(/^@/, '').toLowerCase().trim();
+            const cleanUsername = (user.username || '').replace(/^@/, '').toLowerCase().trim();
+            
+            return cleanName === 'brody201109' || cleanUsername === 'brody201109';
+        }
 
         // User session state
         let currentUser = JSON.parse(localStorage.getItem('skyhost_user')) || null;
@@ -937,6 +997,7 @@
 
                             currentUser = {
                                 name: `@${user.username}`,
+                                username: user.username,
                                 email: user.email || `${user.username}@discord.com`,
                                 provider: 'discord',
                                 discordId: user.id,
@@ -1086,6 +1147,23 @@
 
         function updateAuthUI() {
             const authSection = document.getElementById('user-auth-section');
+            const adminBtn = document.getElementById('nav-btn-admin');
+
+            // Toggle Admin Panel visibility based on Discord username @brody201109
+            if (adminBtn) {
+                if (isAdminUser(currentUser)) {
+                    adminBtn.classList.remove('hidden');
+                    adminBtn.classList.add('flex');
+                } else {
+                    adminBtn.classList.add('hidden');
+                    adminBtn.classList.remove('flex');
+                    const adminView = document.getElementById('view-admin');
+                    if (adminView && !adminView.classList.contains('hidden')) {
+                        switchMainView('dashboard');
+                    }
+                }
+            }
+
             if (!authSection) return;
 
             if (currentUser) {
@@ -1168,8 +1246,20 @@
                 document.getElementById('view-panel').classList.remove('hidden');
                 if (btnPanel) btnPanel.className = "px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all text-white bg-pt-card";
             } else if (viewId === 'admin') {
+                // Strict authorization guard for Admin Panel
+                if (!isAdminUser(currentUser)) {
+                    Swal.fire({
+                        title: 'Akses Ditolak',
+                        text: 'Akses Admin Panel hanya diizinkan untuk akun Discord @brody201109.',
+                        icon: 'error',
+                        background: '#18202c',
+                        color: '#fff',
+                        confirmButtonColor: '#ef4444'
+                    });
+                    return;
+                }
                 document.getElementById('view-admin').classList.remove('hidden');
-                if (btnAdmin) btnAdmin.className = "px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all text-white bg-pt-card";
+                if (btnAdmin) btnAdmin.className = "px-3 py-1.5 rounded hover:text-white hover:bg-pt-card transition-all text-white bg-pt-card flex items-center gap-1";
                 renderAdminPanel();
             }
         }
@@ -1304,21 +1394,21 @@
         function getInitialFilesForRuntime(runtime) {
             if (runtime.includes('python')) {
                 return [
-                    { name: 'main.py', size: '1.2 KiB', time: 'Just now' },
-                    { name: 'requirements.txt', size: '120 B', time: 'Just now' },
-                    { name: '.env', size: '85 B', time: 'Just now' }
+                    { name: 'main.py', size: '1.2 KiB', time: 'Just now', content: '# SkyHost Python Bot Engine\nimport os\nimport time\n\nprint("Bot initialized successfully!")\n' },
+                    { name: 'requirements.txt', size: '120 B', time: 'Just now', content: 'discord.py>=2.3.0\npython-dotenv>=1.0.0\n' },
+                    { name: '.env', size: '85 B', time: 'Just now', content: 'TOKEN=skyhost_python_secret_12345\n' }
                 ];
             } else if (runtime.includes('web')) {
                 return [
-                    { name: 'index.php', size: '2.1 KiB', time: 'Just now' },
-                    { name: 'index.html', size: '1.5 KiB', time: 'Just now' },
-                    { name: 'style.css', size: '890 B', time: 'Just now' }
+                    { name: 'index.php', size: '2.1 KiB', time: 'Just now', content: '<?php\necho "<h1>Selamat Datang di SkyHost Web Container!</h1>";\n?>' },
+                    { name: 'index.html', size: '1.5 KiB', time: 'Just now', content: '<!DOCTYPE html>\n<html>\n<head><title>SkyHost App</title></head>\n<body style="background:#101720;color:#fff;font-family:sans-serif;text-align:center;padding:50px;">\n  <h1>SkyHost Web Hosting</h1>\n  <p>Server web Anda berjalan dengan lancar.</p>\n</body>\n</html>' },
+                    { name: 'style.css', size: '890 B', time: 'Just now', content: 'body {\n  margin: 0;\n  background: #101720;\n  color: #fff;\n}' }
                 ];
             }
             return [
-                { name: 'index.js', size: '1.8 KiB', time: 'Just now' },
-                { name: 'package.json', size: '420 B', time: 'Just now' },
-                { name: '.env', size: '85 B', time: 'Just now' }
+                { name: 'index.js', size: '1.8 KiB', time: 'Just now', content: '// SkyHost Node.js Bot Container\nconsole.log("Starting SkyHost Bot Engine...");\n\nsetInterval(() => {\n  console.log("[STATUS] Bot is running actively...");\n}, 10000);\n' },
+                { name: 'package.json', size: '420 B', time: 'Just now', content: '{\n  "name": "skyhost-bot",\n  "version": "1.0.0",\n  "description": "SkyHost Pterodactyl Bot Server",\n  "main": "index.js",\n  "scripts": {\n    "start": "node index.js"\n  },\n  "dependencies": {}\n}' },
+                { name: '.env', size: '85 B', time: 'Just now', content: 'PORT=8080\nBOT_TOKEN=skyhost_secret_token_12345\n' }
             ];
         }
 
@@ -1760,37 +1850,219 @@
                 return;
             }
 
-            table.innerHTML = currentServer.files.map(f => `
+            table.innerHTML = currentServer.files.map((f, idx) => `
                 <tr class="hover:bg-pt-input/50 transition-colors">
                     <td class="p-3"><input type="checkbox" class="rounded bg-pt-input border-pt-border"></td>
-                    <td class="p-3 font-bold text-white flex items-center gap-2">
+                    <td class="p-3 font-bold text-white flex items-center gap-2 cursor-pointer hover:text-blue-400" onclick="openFileEditor(${idx})">
                         <i class="fa-solid fa-file-code text-blue-400"></i> ${f.name}
                     </td>
-                    <td class="p-3 text-slate-400">${f.size}</td>
-                    <td class="p-3 text-slate-400">${f.time}</td>
-                    <td class="p-3 text-right">
-                        <button onclick="Swal.fire('File Content', 'File: ${f.name}', 'info')" class="text-slate-400 hover:text-white px-1"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <td class="p-3 text-slate-400">${f.size || '1.0 KiB'}</td>
+                    <td class="p-3 text-slate-400">${f.time || 'Just now'}</td>
+                    <td class="p-3 text-right space-x-2">
+                        <button onclick="openFileEditor(${idx})" title="Edit Script" class="text-blue-400 hover:text-blue-300 px-1 font-mono text-xs">
+                            <i class="fa-solid fa-pen-to-square"></i> Edit
+                        </button>
+                        <button onclick="deleteFileFromTable(${idx})" title="Hapus File" class="text-red-400 hover:text-red-300 px-1 font-mono text-xs">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                     </td>
                 </tr>
             `).join('');
         }
 
-        function createNewFilePrompt() {
+        let editingFileIndex = -1;
+
+        function openFileEditor(index) {
+            if (!currentServer || !currentServer.files || !currentServer.files[index]) return;
+            editingFileIndex = index;
+            const file = currentServer.files[index];
+
+            document.getElementById('editor-file-name').value = file.name;
+            document.getElementById('editor-textarea').value = file.content || '';
+
+            const modal = document.getElementById('modal-file-editor');
+            if (modal) modal.classList.remove('hidden');
+
+            setupEditorScrollSync();
+            updateEditorStats();
+        }
+
+        function createNewFileModal() {
+            if (!currentServer) {
+                Swal.fire('Perhatian', 'Pilih server terlebih dahulu.', 'warning');
+                return;
+            }
+            editingFileIndex = -1;
+
+            document.getElementById('editor-file-name').value = '';
+            document.getElementById('editor-textarea').value = '';
+
+            const modal = document.getElementById('modal-file-editor');
+            if (modal) modal.classList.remove('hidden');
+
+            setupEditorScrollSync();
+            updateEditorStats();
+        }
+
+        function closeFileEditorModal() {
+            const modal = document.getElementById('modal-file-editor');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function setupEditorScrollSync() {
+            const textarea = document.getElementById('editor-textarea');
+            const lineNumbers = document.getElementById('editor-line-numbers');
+            if (textarea && lineNumbers) {
+                textarea.onscroll = () => {
+                    lineNumbers.scrollTop = textarea.scrollTop;
+                };
+            }
+        }
+
+        function updateEditorStats() {
+            const textarea = document.getElementById('editor-textarea');
+            const lineNumbers = document.getElementById('editor-line-numbers');
+            const stats = document.getElementById('editor-stats');
+            const pathDisplay = document.getElementById('editor-path-filename');
+            const nameInput = document.getElementById('editor-file-name');
+
+            if (!textarea) return;
+
+            const val = textarea.value;
+            const lines = val.split('\n').length;
+            const chars = val.length;
+
+            if (stats) stats.innerText = `${lines} baris | ${chars} karakter`;
+            if (pathDisplay && nameInput) pathDisplay.innerText = nameInput.value.trim() || 'file_baru.js';
+
+            if (lineNumbers) {
+                let nums = '';
+                for (let i = 1; i <= Math.max(lines, 1); i++) {
+                    nums += i + '\n';
+                }
+                lineNumbers.innerText = nums;
+            }
+        }
+
+        function copyEditorContent() {
+            const textarea = document.getElementById('editor-textarea');
+            if (textarea && textarea.value) {
+                navigator.clipboard.writeText(textarea.value);
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Script berhasil disalin ke clipboard!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    background: '#18202c',
+                    color: '#fff'
+                });
+            }
+        }
+
+        function saveFileFromEditor() {
+            if (!currentServer) return;
+
+            const nameInput = document.getElementById('editor-file-name');
+            const textarea = document.getElementById('editor-textarea');
+
+            const fileName = nameInput.value.trim();
+            if (!fileName) {
+                Swal.fire('Peringatan', 'Silakan masukkan nama file terlebih dahulu (contoh: index.js)', 'warning');
+                return;
+            }
+
+            const content = textarea.value;
+            const bytes = new Blob([content]).size;
+            const sizeFormatted = bytes > 1024 ? (bytes / 1024).toFixed(1) + ' KiB' : bytes + ' B';
+
+            if (!currentServer.files) currentServer.files = [];
+
+            if (editingFileIndex >= 0 && currentServer.files[editingFileIndex]) {
+                currentServer.files[editingFileIndex] = {
+                    name: fileName,
+                    size: sizeFormatted,
+                    time: 'Just now',
+                    content: content
+                };
+            } else {
+                currentServer.files.push({
+                    name: fileName,
+                    size: sizeFormatted,
+                    time: 'Just now',
+                    content: content
+                });
+            }
+
+            persistServers();
+            renderFilesTable();
+            closeFileEditorModal();
+
             Swal.fire({
-                title: 'Create New File',
-                input: 'text',
-                inputPlaceholder: 'index.js / config.json',
-                showCancelButton: true,
+                title: 'File Berhasil Disimpan!',
+                text: `File ${fileName} telah disimpan di /home/container/`,
+                icon: 'success',
                 background: '#18202c',
                 color: '#fff',
                 confirmButtonColor: '#2563eb'
+            });
+        }
+
+        function deleteFileFromTable(index) {
+            if (!currentServer || !currentServer.files || !currentServer.files[index]) return;
+            const file = currentServer.files[index];
+
+            Swal.fire({
+                title: 'Hapus File?',
+                text: `Apakah Anda yakin ingin menghapus ${file.name}?`,
+                icon: 'warning',
+                showCancelButton: true,
+                background: '#18202c',
+                color: '#fff',
+                confirmButtonColor: '#ef4444'
             }).then(res => {
-                if (res.isConfirmed && res.value && currentServer) {
-                    currentServer.files.push({ name: res.value, size: '0 B', time: 'Just now' });
+                if (res.isConfirmed) {
+                    currentServer.files.splice(index, 1);
                     persistServers();
                     renderFilesTable();
                 }
             });
+        }
+
+        function handleRealFileUpload(event) {
+            const files = event.target.files;
+            if (!files || files.length === 0 || !currentServer) return;
+
+            const file = files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const content = e.target.result;
+                const sizeFormatted = file.size > 1024 ? (file.size / 1024).toFixed(1) + ' KiB' : file.size + ' B';
+
+                if (!currentServer.files) currentServer.files = [];
+                currentServer.files.push({
+                    name: file.name,
+                    size: sizeFormatted,
+                    time: 'Just now',
+                    content: content
+                });
+
+                persistServers();
+                renderFilesTable();
+
+                Swal.fire({
+                    title: 'Upload Berhasil!',
+                    text: `File ${file.name} telah diunggah ke container server.`,
+                    icon: 'success',
+                    background: '#18202c',
+                    color: '#fff',
+                    confirmButtonColor: '#2563eb'
+                });
+            };
+
+            reader.readAsText(file);
         }
 
         function createNewDirectoryPrompt() {
