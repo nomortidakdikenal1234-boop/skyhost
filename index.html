@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SkyHost Bot Cloud - Pterodactyl Panel</title>
+    <title>SkyHosting</title>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -755,7 +755,7 @@
                     <h3 class="text-lg font-bold text-white tracking-tight">Otorisasi SkyHost Cloud</h3>
                     <p class="text-xs text-slate-400">SkyHost Bot Cloud meminta akses ke akun Discord Anda</p>
                     <div class="text-[10px] font-mono text-indigo-400 bg-indigo-500/10 py-1 rounded">
-                        oauth2/authorize?client_id=129849102&response_type=code
+                        response_type=token&scope=identify%20email
                     </div>
                 </div>
 
@@ -770,6 +770,12 @@
                         <i class="fa-solid fa-check text-emerald-400 text-xs"></i>
                         <span><strong>email</strong>: Alamat email terverifikasi</span>
                     </div>
+                </div>
+
+                <!-- Live Client ID Configuration Input -->
+                <div class="space-y-1.5">
+                    <label class="text-[11px] font-bold text-slate-400 uppercase">Discord Client ID (Dev Portal):</label>
+                    <input id="discord-client-id-input" type="text" value="1547033759314870333" placeholder="Masukkan Client ID Discord..." class="w-full bg-[#202225] border border-[#40444b] rounded px-3 py-2 text-xs text-white font-mono outline-none focus:border-indigo-500">
                 </div>
 
                 <!-- User Selector Input -->
@@ -798,19 +804,19 @@
                 <div class="w-12 h-12 rounded-full border-4 border-indigo-500 border-t-transparent animate-spin mx-auto"></div>
                 
                 <div class="space-y-1">
-                    <h4 class="text-sm font-bold text-white font-mono">/callback?code=<span id="oauth-code-display" class="text-amber-400">xxxx</span></h4>
-                    <p id="oauth-status-text" class="text-xs text-slate-400 font-mono">Menukar authorization code ke token...</p>
+                    <h4 class="text-sm font-bold text-white font-mono">/#access_token=<span id="oauth-code-display" class="text-amber-400">xxxx</span></h4>
+                    <p id="oauth-status-text" class="text-xs text-slate-400 font-mono">Meminta data akun Discord ke API...</p>
                 </div>
 
                 <!-- Live Exchange Status Steps -->
                 <div class="bg-[#202225] p-3 rounded font-mono text-[11px] text-left space-y-1.5 text-slate-300">
                     <div id="step-code-exchange" class="flex items-center gap-2 text-indigo-400">
                         <i class="fa-solid fa-spinner animate-spin"></i>
-                        <span>POST /api/oauth2/token</span>
+                        <span>Parsing #access_token</span>
                     </div>
                     <div id="step-user-fetch" class="flex items-center gap-2 text-slate-500">
                         <i class="fa-solid fa-circle text-[8px]"></i>
-                        <span>GET /api/v10/users/@me</span>
+                        <span>GET https://discord.com/api/v10/users/@me</span>
                     </div>
                     <div id="step-session-create" class="flex items-center gap-2 text-slate-500">
                         <i class="fa-solid fa-circle text-[8px]"></i>
@@ -901,6 +907,9 @@
     </div>
 
     <script>
+        // Default Discord Client ID
+        const DISCORD_CLIENT_ID = '1547033759314870333';
+
         // User session state
         let currentUser = JSON.parse(localStorage.getItem('skyhost_user')) || null;
 
@@ -911,6 +920,74 @@
         let chartCpu = null;
         let chartRam = null;
         let chartNet = null;
+
+        // Check Discord OAuth URL Hash fragment (#access_token=...) on page load
+        function checkDiscordOAuthHash() {
+            const hash = window.location.hash;
+            if (hash && hash.includes('access_token=')) {
+                const params = new URLSearchParams(hash.replace('#', '?'));
+                const accessToken = params.get('access_token');
+
+                if (accessToken) {
+                    // Show OAuth Callback status loading modal
+                    const modal = document.getElementById('modal-discord-oauth');
+                    if (modal) modal.classList.remove('hidden');
+                    
+                    const step1 = document.getElementById('discord-oauth-step-1');
+                    const step2 = document.getElementById('discord-oauth-step-2');
+                    if (step1) step1.classList.add('hidden');
+                    if (step2) step2.classList.remove('hidden');
+
+                    document.getElementById('oauth-code-display').innerText = accessToken.substring(0, 10) + '...';
+
+                    // Fetch user info from Discord API: https://discord.com/api/v10/users/@me
+                    fetch('https://discord.com/api/v10/users/@me', {
+                        headers: {
+                            'Authorization': `Bearer ${accessToken}`
+                        }
+                    })
+                    .then(res => res.json())
+                    .then(user => {
+                        if (user && user.username) {
+                            const avatarUrl = user.avatar 
+                                ? `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+                                : null;
+
+                            currentUser = {
+                                name: `@${user.username}`,
+                                email: user.email || `${user.username}@discord.com`,
+                                provider: 'discord',
+                                discordId: user.id,
+                                avatar: avatarUrl
+                            };
+
+                            localStorage.setItem('skyhost_user', JSON.stringify(currentUser));
+                            updateAuthUI();
+
+                            // Clean URL hash fragment
+                            window.history.replaceState(null, null, window.location.pathname + window.location.search);
+
+                            setTimeout(() => {
+                                closeDiscordOAuth();
+                                switchMainView('dashboard');
+                                Swal.fire({
+                                    title: 'Otorisasi Discord Berhasil!',
+                                    text: `Selamat datang kembali, ${currentUser.name}!`,
+                                    icon: 'success',
+                                    background: '#18202c',
+                                    color: '#fff',
+                                    confirmButtonColor: '#5865F2'
+                                });
+                            }, 1000);
+                        }
+                    })
+                    .catch(() => {
+                        // Fallback handling if CORS or invalid token
+                        confirmDiscordOAuth();
+                    });
+                }
+            }
+        }
 
         // Base ping configuration and live state
         const nodePings = {
@@ -943,6 +1020,7 @@
             const yearElem = document.getElementById('current-year');
             if (yearElem) yearElem.innerText = new Date().getFullYear();
             
+            checkDiscordOAuthHash();
             updateAuthUI();
             initResourceCharts();
             renderDashboardServers();
@@ -969,16 +1047,18 @@
 
             if (currentUser) {
                 const isDiscord = currentUser.provider === 'discord';
-                const avatarIcon = isDiscord 
-                    ? `<div class="w-8 h-8 rounded-full bg-[#5865F2] text-white flex items-center justify-center font-bold text-xs border border-indigo-400/30 shadow"><i class="fa-brands fa-discord"></i></div>`
-                    : `<div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs border border-blue-400/30 shadow"><i class="fa-solid fa-user"></i></div>`;
+                const avatarIcon = currentUser.avatar 
+                    ? `<img src="${currentUser.avatar}" class="w-8 h-8 rounded-full border border-indigo-400/30 shadow object-cover">`
+                    : (isDiscord 
+                        ? `<div class="w-8 h-8 rounded-full bg-[#5865F2] text-white flex items-center justify-center font-bold text-xs border border-indigo-400/30 shadow"><i class="fa-brands fa-discord"></i></div>`
+                        : `<div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs border border-blue-400/30 shadow"><i class="fa-solid fa-user"></i></div>`);
 
                 container.innerHTML = `
                     <div class="flex items-center gap-2 border-l border-pt-border pl-3">
                         ${avatarIcon}
                         <div class="hidden sm:block text-left">
                             <span class="text-xs font-bold text-white block leading-tight">${currentUser.name}</span>
-                            <span class="text-[10px] text-emerald-400 font-mono block">${isDiscord ? 'Discord User' : 'Email Account'}</span>
+                            <span class="text-[10px] text-emerald-400 font-mono block">${isDiscord ? 'Discord OAuth2' : 'Email Account'}</span>
                         </div>
                         <button onclick="logoutUser()" title="Keluar Akun" class="ml-2 text-slate-400 hover:text-red-400 text-xs px-2 py-1 bg-pt-card rounded border border-pt-border hover:border-red-500/50 transition-all">
                             <i class="fa-solid fa-right-from-bracket"></i>
@@ -994,18 +1074,20 @@
             }
         }
 
-        function openAuthModal() {
-            const modal = document.getElementById('modal-auth');
-            if (modal) modal.classList.remove('hidden');
-        }
-
-        function closeAuthModal() {
-            const modal = document.getElementById('modal-auth');
-            if (modal) modal.classList.add('hidden');
-        }
-
         function startDiscordLogin() {
             closeAuthModal();
+
+            const inputClientId = document.getElementById('discord-client-id-input')?.value.trim();
+            const clientId = inputClientId || DISCORD_CLIENT_ID;
+
+            if (clientId) {
+                // Direct OAuth Redirect to Discord with response_type=token
+                const redirectUri = encodeURIComponent(window.location.href.split('#')[0]);
+                const discordOAuthUrl = `https://discord.com/oauth2/authorize?response_type=token&client_id=${clientId}&scope=identify%20email&redirect_uri=${redirectUri}`;
+                window.location.href = discordOAuthUrl;
+                return;
+            }
+
             const step1 = document.getElementById('discord-oauth-step-1');
             const step2 = document.getElementById('discord-oauth-step-2');
             if (step1) step1.classList.remove('hidden');
