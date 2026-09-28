@@ -241,9 +241,18 @@
                 <span id="server-count-badge" class="text-xs bg-white border border-sky-100 text-sky-600 px-3.5 py-1 rounded-full font-mono font-bold shadow-sm">0 Server</span>
             </div>
 
-            <!-- Server Grid container -->
+            <!-- Server Grid container dengan Fallback Default HTML -->
             <div id="dashboard-servers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <!-- Dynamically populated -->
+                <div class="col-span-full bg-white/80 border border-sky-100 rounded-2xl p-8 text-center space-y-3 shadow-sm">
+                    <div class="w-12 h-12 rounded-2xl bg-sky-100 flex items-center justify-center text-sky-600 text-xl mx-auto">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h3 class="text-slate-900 font-bold text-sm">Login untuk melihat server anda</h3>
+                    <p class="text-xs text-slate-500 max-w-md mx-auto">Silakan masuk ke akun Anda terlebih dahulu untuk melihat dan mengelola daftar server bot yang Anda miliki.</p>
+                    <button onclick="openAuthModal()" class="px-5 py-2.5 bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs rounded-xl shadow-md transition-all inline-flex items-center gap-2">
+                        <i class="fa-solid fa-right-to-bracket"></i> Login Sekarang
+                    </button>
+                </div>
             </div>
         </section>
 
