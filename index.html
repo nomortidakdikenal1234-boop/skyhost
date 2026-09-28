@@ -113,10 +113,6 @@
             width: max-content;
             animation: ticker-slide 30s linear infinite;
         }
-
-        .ticker-wrapper:hover .ticker-content {
-            animation-play-state: paused;
-        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-cyan-500 selection:text-black">
@@ -170,7 +166,7 @@
 
             <div class="inline-flex items-center gap-2 bg-pt-card/80 border border-pt-border px-3.5 py-1.5 rounded-full text-xs font-mono">
                 <span data-i18n="heroBadgeTag" class="bg-cyan-500 text-black font-extrabold px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider">HARGA MURAH</span>
-                <span data-i18n="heroBadgeSub" class="text-pt-bright">Bot Hosting & Container Server mulai Rp 5.000/bln</span>
+                <span data-i18n="heroBadgeSub" class="text-pt-bright">Bot Hosting & Container Server mulai Rp 10.000/bln</span>
             </div>
 
             <h1 data-i18n="heroTitle" class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight max-w-4xl mx-auto">
@@ -195,24 +191,24 @@
                 <div onclick="openOrderModal('starter')" class="bg-pt-card border border-pt-border hover:border-cyan-500/50 p-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-between group">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-server"></i>
+                            <i class="fa-solid fa-fire"></i>
                         </div>
                         <div>
-                            <span data-i18n="cardStarterTitle" class="text-xs text-pt-text font-mono block">Bot Container</span>
-                            <strong data-i18n="cardStarterSub" class="text-sm text-white font-mono">Mulai Rp 5.000/bln</strong>
+                            <span data-i18n="cardStarterTitle" class="text-xs text-pt-text font-mono block">SkyHost Starter (5 GB SSD)</span>
+                            <strong data-i18n="cardStarterSub" class="text-sm text-white font-mono">Rp 10.000/bln</strong>
                         </div>
                     </div>
                     <i class="fa-solid fa-arrow-right text-pt-text group-hover:text-cyan-400 transition-colors text-xs"></i>
                 </div>
 
-                <div onclick="openOrderModal('monster')" class="bg-pt-card border border-pt-border hover:border-cyan-500/50 p-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-between group">
+                <div onclick="openOrderModal('pro')" class="bg-pt-card border border-pt-border hover:border-cyan-500/50 p-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-between group">
                     <div class="flex items-center gap-3">
                         <div class="w-9 h-9 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center text-lg">
-                            <i class="fa-solid fa-cubes"></i>
+                            <i class="fa-solid fa-wind"></i>
                         </div>
                         <div>
-                            <span data-i18n="cardHeavyTitle" class="text-xs text-pt-text font-mono block">Heavy Multi-Bot Node</span>
-                            <strong data-i18n="cardHeavySub" class="text-sm text-white font-mono">Mulai Rp 20.000/bln</strong>
+                            <span data-i18n="cardHeavyTitle" class="text-xs text-pt-text font-mono block">SkyHost Pro (10 GB SSD)</span>
+                            <strong data-i18n="cardHeavySub" class="text-sm text-white font-mono">Rp 20.000/bln</strong>
                         </div>
                     </div>
                     <i class="fa-solid fa-arrow-right text-pt-text group-hover:text-cyan-400 transition-colors text-xs"></i>
@@ -234,17 +230,13 @@
                 <div class="ticker-content space-x-12 text-xs font-mono text-pt-bright">
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-python text-yellow-400 text-base"></i> Python 3.11/3.12</span>
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-node-js text-emerald-400 text-base"></i> Node.js 18/20</span>
-                    <span class="inline-flex items-center gap-2"><i class="fa-brands fa-golang text-cyan-400 text-base"></i> Go / Golang</span>
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-java text-rose-400 text-base"></i> Java 17/21</span>
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-discord text-indigo-400 text-base"></i> Discord.js / Py</span>
-                    <span class="inline-flex items-center gap-2"><i class="fa-solid fa-cube text-cyan-400 text-base"></i> Custom Runtime Container</span>
 
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-python text-yellow-400 text-base"></i> Python 3.11/3.12</span>
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-node-js text-emerald-400 text-base"></i> Node.js 18/20</span>
-                    <span class="inline-flex items-center gap-2"><i class="fa-brands fa-golang text-cyan-400 text-base"></i> Go / Golang</span>
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-java text-rose-400 text-base"></i> Java 17/21</span>
                     <span class="inline-flex items-center gap-2"><i class="fa-brands fa-discord text-indigo-400 text-base"></i> Discord.js / Py</span>
-                    <span class="inline-flex items-center gap-2"><i class="fa-solid fa-cube text-cyan-400 text-base"></i> Custom Runtime Container</span>
                 </div>
             </div>
 
@@ -307,117 +299,65 @@
             </div>
         </section>
 
-        <!-- HOSTING PLANS SECTION -->
+        <!-- HOSTING PLANS SECTION (2 PLANS FOR 20GB VPS) -->
+        <section id="plans-section" class="max-w-7xl mx-auto px-4 space-y-6">
+        <!-- HOSTING PLANS SECTION (2 PLANS MATCHING SPECIFICATIONS) -->
         <section id="plans-section" class="max-w-7xl mx-auto px-4 space-y-6">
             <div class="text-center space-y-2">
                 <span data-i18n="secPlansTag" class="text-xs font-semibold uppercase tracking-wider text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full">HARGA TERJANGKAU</span>
                 <h2 data-i18n="secPlansTitle" class="text-2xl md:text-3xl font-extrabold text-white">Paket SkyHost Bot Hosting</h2>
-                <p data-i18n="secPlansSub" class="text-xs md:text-sm text-pt-text max-w-xl mx-auto">Pilih alokasi RAM & CPU sesuai kebutuhan bot Anda. Harga mulai Rp 5.000/bulan.</p>
+                <p data-i18n="secPlansSub" class="text-xs md:text-sm text-pt-text max-w-xl mx-auto">Disesuaikan untuk spesifikasi server & container bot Anda. Pilih alokasi yang tepat untuk bot Anda.</p>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <!-- Plan 1: Starter -->
-                <div class="bg-pt-card border border-pt-border rounded-xl p-5 flex flex-col justify-between hover:border-cyan-500/50 transition-all">
+            <div class="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-6">
+                <!-- Plan 1: SKYHOST STARTER -->
+                <div class="bg-pt-card border border-pt-border rounded-xl p-6 flex flex-col justify-between hover:border-cyan-500/50 transition-all text-center">
                     <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">STARTER BOT</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">1 GB RAM</span>
+                        <h3 data-i18n="planStarterTitle" class="text-xl font-extrabold text-cyan-400 tracking-wider uppercase">SKYHOST STARTER</h3>
+                        <div class="mt-2 mb-4">
+                            <span class="text-3xl font-extrabold text-white font-mono">Rp10.000</span>
+                            <span class="text-xs text-pt-text">/bln</span>
                         </div>
-                        <h3 data-i18n="planStarterTitle" class="text-lg font-bold text-white mt-3">Paket Starter</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-2xl font-extrabold text-white font-mono">Rp 5.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p data-i18n="planStarterDesc" class="text-xs text-pt-text leading-relaxed">Cocok untuk WhatsApp Bot kecil atau Telegram Bot.</p>
                         
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1 GB RAM DDR4</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 1 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 5 GB NVMe SSD</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Anti DDOS Protection</li>
+                        <ul class="text-xs text-slate-300 space-y-2.5 font-mono text-center">
+                            <li><span class="text-slate-400">RAM:</span> <strong>1 GB</strong></li>
+                            <li><span class="text-slate-400">CPU:</span> <strong>100%</strong></li>
+                            <li><span class="text-slate-400">Disk:</span> <strong>5GB</strong></li>
+                            <li><span class="text-slate-400">Speed:</span> Up to 10Gbps</li>
+                            <li><span class="text-slate-400">Processor:</span> Up to 8vCPU AMD or Intel</li>
+                            <li><span class="text-slate-400">Software:</span> Node.js, Python, Bun, Lainnya</li>
+                            <li class="text-[11px] text-slate-400"><span class="text-slate-500">Data Center:</span> Singapore · Germany · ID · US</li>
+                            <li class="text-emerald-400 font-semibold pt-1">Bisa Perpanjang dengan Server yang Sama</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal('starter')" data-i18n="btnSelectPlan5" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all shadow-md shadow-cyan-600/10">
-                        Pilih Paket Rp 5.000
+                    <button onclick="openOrderModal('starter')" data-i18n="btnSelectPlan5" class="mt-8 w-full py-3 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all shadow-md shadow-cyan-600/10">
+                        Order SkyHost Starter (Rp10.000)
                     </button>
                 </div>
 
-                <!-- Plan 2: Pro -->
-                <div class="bg-pt-card border-2 border-cyan-500 rounded-xl p-5 flex flex-col justify-between relative shadow-xl shadow-cyan-500/10">
-                    <span class="absolute -top-3 right-4 bg-cyan-500 text-[9px] font-extrabold text-black px-2.5 py-0.5 rounded-full uppercase tracking-wider">POPULER</span>
+                <!-- Plan 2: SKYHOST PRO -->
+                <div class="bg-pt-card border-2 border-cyan-500 rounded-xl p-6 flex flex-col justify-between relative shadow-xl shadow-cyan-500/10 text-center">
+                    <span class="absolute -top-3 right-6 bg-cyan-500 text-[9px] font-extrabold text-black px-3 py-0.5 rounded-full uppercase tracking-wider">REKOMENDASI</span>
                     <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] font-bold text-purple-400 bg-purple-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">STANDARD BOT</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">3 GB RAM</span>
+                        <h3 data-i18n="planProTitle" class="text-xl font-extrabold text-cyan-400 tracking-wider uppercase">SKYHOST PRO</h3>
+                        <div class="mt-2 mb-4">
+                            <span class="text-3xl font-extrabold text-white font-mono">Rp20.000</span>
+                            <span class="text-xs text-pt-text">/bln</span>
                         </div>
-                        <h3 data-i18n="planProTitle" class="text-lg font-bold text-white mt-3">Paket Pro Bot</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-2xl font-extrabold text-white font-mono">Rp 12.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p data-i18n="planProDesc" class="text-xs text-pt-text leading-relaxed">Sangat cocok untuk Discord Bot, Telegram Bot & API Server.</p>
                         
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 3 GB RAM DDR4</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 2 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 15 GB NVMe SSD</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Dedicated IP Port</li>
+                        <ul class="text-xs text-slate-300 space-y-2.5 font-mono text-center">
+                            <li><span class="text-slate-400">RAM:</span> <strong>2 GB</strong></li>
+                            <li><span class="text-slate-400">CPU:</span> <strong>125%</strong></li>
+                            <li><span class="text-slate-400">Disk:</span> <strong>10GB</strong></li>
+                            <li><span class="text-slate-400">Speed:</span> Up to 10Gbps</li>
+                            <li><span class="text-slate-400">Processor:</span> Up to 8vCPU AMD or Intel</li>
+                            <li><span class="text-slate-400">Software:</span> Node.js, Python, Bun, Lainnya</li>
+                            <li class="text-[11px] text-slate-400"><span class="text-slate-500">Data Center:</span> Singapore · Germany · ID · US</li>
+                            <li class="text-emerald-400 font-semibold pt-1">Bisa Perpanjang dengan Server yang Sama</li>
                         </ul>
                     </div>
-                    <button onclick="openOrderModal('pro')" data-i18n="btnSelectPlan12" class="mt-6 w-full py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-lg transition-all shadow-md">
-                        Pilih Paket Rp 12.000
-                    </button>
-                </div>
-
-                <!-- Plan 3: Monster -->
-                <div class="bg-pt-card border border-pt-border rounded-xl p-5 flex flex-col justify-between hover:border-cyan-500/50 transition-all">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] font-bold text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">HEAVY BOT</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">6 GB RAM</span>
-                        </div>
-                        <h3 data-i18n="planMonsterTitle" class="text-lg font-bold text-white mt-3">Paket Monster Bot</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-2xl font-extrabold text-white font-mono">Rp 20.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p data-i18n="planMonsterDesc" class="text-xs text-pt-text leading-relaxed">Untuk Bot skala besar dengan ribuan user atau game server.</p>
-                        
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 6 GB RAM High Speed</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 3 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 30 GB NVMe SSD</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Priority 24/7 Node</li>
-                        </ul>
-                    </div>
-                    <button onclick="openOrderModal('monster')" data-i18n="btnSelectPlan20" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
-                        Pilih Paket Rp 20.000
-                    </button>
-                </div>
-
-                <!-- Plan 4: Extreme -->
-                <div class="bg-pt-card border border-pt-border rounded-xl p-5 flex flex-col justify-between hover:border-cyan-500/50 transition-all">
-                    <div>
-                        <div class="flex justify-between items-start">
-                            <span class="text-[10px] font-bold text-rose-400 bg-rose-500/10 px-2.5 py-1 rounded-full uppercase tracking-wider">UNLIMITED</span>
-                            <span class="text-xs font-mono text-emerald-400 font-bold">12 GB RAM</span>
-                        </div>
-                        <h3 data-i18n="planExtremeTitle" class="text-base font-bold text-white mt-3">Paket Extreme Node</h3>
-                        <div class="mt-2 mb-3">
-                            <span class="text-2xl font-extrabold text-white font-mono">Rp 30.000</span>
-                            <span class="text-xs text-pt-text">/ bulan</span>
-                        </div>
-                        <p data-i18n="planExtremeDesc" class="text-xs text-pt-text leading-relaxed">Resource tanpa batas untuk enterprise & multi-bot hosting.</p>
-                        
-                        <ul class="text-xs text-slate-300 space-y-2 mt-4 font-mono">
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 12 GB RAM Speed DDR4</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 6 Core CPU Intel Xeon</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> 60 GB NVMe High Speed</li>
-                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> Custom Domain Support</li>
-                        </ul>
-                    </div>
-                    <button onclick="openOrderModal('extreme')" data-i18n="btnSelectPlan30" class="mt-6 w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 text-black font-bold text-xs rounded-lg transition-all">
-                        Pilih Paket Rp 30.000
+                    <button onclick="openOrderModal('pro')" data-i18n="btnSelectPlan12" class="mt-8 w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-black font-bold text-xs rounded-lg transition-all shadow-md">
+                        Order SkyHost Pro (Rp20.000)
                     </button>
                 </div>
             </div>
@@ -520,7 +460,7 @@
                         <div class="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center text-slate-400 text-base"><i class="fa-solid fa-hard-drive"></i></div>
                         <div>
                             <span class="text-pt-text text-[11px] block">Disk</span>
-                            <span id="card-disk" class="text-white font-bold font-mono">4.27 KiB / 15.00 GiB</span>
+                            <span id="card-disk" class="text-white font-bold font-mono">4.27 KiB / 12.00 GiB</span>
                         </div>
                     </div>
 
@@ -732,7 +672,7 @@
         <div class="bg-pt-card border border-pt-border rounded-xl overflow-hidden">
             <div class="p-4 border-b border-pt-border flex justify-between items-center">
                 <h2 class="text-xs font-bold text-white uppercase tracking-wider">Daftar Permohonan & Server User</h2>
-                <span class="text-[11px] text-slate-400 font-mono">SkyHost Master Node v2.0</span>
+                <span class="text-[11px] text-slate-400 font-mono">SkyHost Master Node v2.0 (VPS 20GB Mode)</span>
             </div>
 
             <div class="overflow-x-auto">
@@ -846,10 +786,8 @@
                 <div>
                     <label class="text-slate-300 font-medium block mb-1">Paket Hosting</label>
                     <select id="order-plan" class="w-full bg-pt-input border border-pt-border rounded-lg p-2.5 text-white outline-none focus:border-cyan-500">
-                        <option value="starter">Paket Starter (1 GB RAM / 1 Core CPU) - Rp 5.000/bln</option>
-                        <option value="pro" selected>Paket Pro Bot (3 GB RAM / 2 Core CPU) - Rp 12.000/bln</option>
-                        <option value="monster">Paket Monster Bot (6 GB RAM / 3 Core CPU) - Rp 20.000/bln</option>
-                        <option value="extreme">Paket Extreme Node (12 GB RAM / 6 Core CPU) - Rp 30.000/bln</option>
+                        <option value="starter">SKYHOST STARTER (1 GB RAM / 100% CPU / 5 GB SSD) - Rp 10.000/bln</option>
+                        <option value="pro" selected>SKYHOST PRO (2 GB RAM / 125% CPU / 10 GB SSD) - Rp 20.000/bln</option>
                     </select>
                 </div>
 
@@ -860,7 +798,6 @@
                         <option value="nodejs18">🟢 Node.js 18 (Legacy Node App)</option>
                         <option value="python311">🐍 Python 3.11 (Discord Bot, Telegram Bot, FastAPI)</option>
                         <option value="python312">🐍 Python 3.12 (Python Latest Runtime)</option>
-                        <option value="golang">🦫 Go / Golang Runtime Server</option>
                     </select>
                 </div>
 
@@ -908,8 +845,7 @@
                     <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Discord Bot Hosting (Node.js/Py)</a></li>
                     <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Telegram Bot Hosting</a></li>
                     <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Python FastAPI / Flask Hosting</a></li>
-                    <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Golang High Performance Hosting</a></li>
-                    <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Container Server & Game Server</a></li>
+                    <li><a href="#plans-section" class="hover:text-cyan-400 transition-colors">Custom Runtime Container</a></li>
                 </ul>
             </div>
 
@@ -1009,15 +945,15 @@
         const translations = {
             ID: {
                 heroBadgeTag: "HARGA MURAH",
-                heroBadgeSub: "Bot Hosting & Container Server mulai Rp 5.000/bln",
+                heroBadgeSub: "Bot Hosting & Container Server mulai Rp 10.000/bln",
                 heroTitle: "SkyHost — Cloud Container & Hosting Bot High Performance",
                 heroDesc: "Host Discord.js, Telegram Bot, Python App, dan Node.js 24/7 tanpa mati. Ditenagai prosesor enterprise Intel Xeon / AMD EPYC dengan kontrol panel Pterodactyl instan.",
                 btnPlans: '<i class="fa-solid fa-layer-group"></i> Lihat Paket',
                 btnDeploy: 'Deploy Sekarang <i class="fa-solid fa-arrow-up-right-from-square text-xs text-cyan-400"></i>',
-                cardStarterTitle: "Bot Container",
-                cardStarterSub: "Mulai Rp 5.000/bln",
-                cardHeavyTitle: "Heavy Multi-Bot Node",
-                cardHeavySub: "Mulai Rp 20.000/bln",
+                cardStarterTitle: "SkyHost Starter (5 GB SSD)",
+                cardStarterSub: "Rp 10.000/bln",
+                cardHeavyTitle: "SkyHost Pro (10 GB SSD)",
+                cardHeavySub: "Rp 20.000/bln",
                 statActiveUsers: "Pengguna Aktif",
                 statUptime: "Uptime SLA",
                 statNetwork: "Network Premium",
@@ -1025,19 +961,13 @@
                 secServers: "Server Bot Anda",
                 secPlansTag: "HARGA TERJANGKAU",
                 secPlansTitle: "Paket SkyHost Bot Hosting",
-                secPlansSub: "Pilih alokasi RAM & CPU sesuai kebutuhan bot Anda. Harga mulai Rp 5.000/bulan.",
-                planStarterTitle: "Paket Starter",
-                planStarterDesc: "Cocok untuk WhatsApp Bot kecil atau Telegram Bot.",
-                planProTitle: "Paket Pro Bot",
-                planProDesc: "Sangat cocok untuk Discord Bot, Telegram Bot & API Server.",
-                planMonsterTitle: "Paket Monster Bot",
-                planMonsterDesc: "Untuk Bot skala besar dengan ribuan user atau game server.",
-                planExtremeTitle: "Paket Extreme Node",
-                planExtremeDesc: "Resource tanpa batas untuk enterprise & multi-bot hosting.",
-                btnSelectPlan5: "Pilih Paket Rp 5.000",
-                btnSelectPlan12: "Pilih Paket Rp 12.000",
-                btnSelectPlan20: "Pilih Paket Rp 20.000",
-                btnSelectPlan30: "Pilih Paket Rp 30.000",
+                secPlansSub: "Disesuaikan untuk spesifikasi server & container bot Anda.",
+                planStarterTitle: "SKYHOST STARTER",
+                planStarterDesc: "RAM 1 GB | CPU 100% | Disk 5 GB",
+                planProTitle: "SKYHOST PRO",
+                planProDesc: "RAM 2 GB | CPU 125% | Disk 10 GB",
+                btnSelectPlan5: "Order SkyHost Starter (Rp10.000)",
+                btnSelectPlan12: "Order SkyHost Pro (Rp20.000)",
                 footerHeaderServices: "Layanan SkyHost",
                 footerHeaderPlatform: "SkyHost Platform",
                 footerHeaderPayment: "Metode Pembayaran",
@@ -1048,15 +978,15 @@
             },
             EN: {
                 heroBadgeTag: "CHEAP PRICE",
-                heroBadgeSub: "Bot Hosting & Container Server starting at Rp 5,000/mo",
+                heroBadgeSub: "Bot Hosting & Container Server starting at Rp 10,000/mo",
                 heroTitle: "SkyHost — High Performance Cloud Container & Bot Hosting",
                 heroDesc: "Host Discord.js, Telegram Bot, Python App, and Node.js 24/7 with zero downtime. Powered by enterprise Intel Xeon / AMD EPYC processors with instant Pterodactyl control panel.",
                 btnPlans: '<i class="fa-solid fa-layer-group"></i> View Plans',
                 btnDeploy: 'Deploy Now <i class="fa-solid fa-arrow-up-right-from-square text-xs text-cyan-400"></i>',
-                cardStarterTitle: "Bot Container",
-                cardStarterSub: "Starting Rp 5,000/mo",
-                cardHeavyTitle: "Heavy Multi-Bot Node",
-                cardHeavySub: "Starting Rp 20,000/mo",
+                cardStarterTitle: "SkyHost Starter (5 GB SSD)",
+                cardStarterSub: "Rp 10,000/mo",
+                cardHeavyTitle: "SkyHost Pro (10 GB SSD)",
+                cardHeavySub: "Rp 20,000/mo",
                 statActiveUsers: "Active Users",
                 statUptime: "Uptime SLA",
                 statNetwork: "Premium Network",
@@ -1064,19 +994,13 @@
                 secServers: "Your Bot Servers",
                 secPlansTag: "AFFORDABLE RATES",
                 secPlansTitle: "SkyHost Bot Hosting Plans",
-                secPlansSub: "Choose RAM & CPU allocation based on your bot needs. Prices starting from Rp 5,000/month.",
-                planStarterTitle: "Starter Plan",
-                planStarterDesc: "Suitable for lightweight Telegram or WhatsApp bots.",
-                planProTitle: "Pro Bot Plan",
-                planProDesc: "Perfect for Discord Bots, Telegram Bots & API Servers.",
-                planMonsterTitle: "Monster Bot Plan",
-                planMonsterDesc: "For large-scale bots with thousands of users or game servers.",
-                planExtremeTitle: "Extreme Node Plan",
-                planExtremeDesc: "Unlimited resources for enterprise & multi-bot hosting.",
-                btnSelectPlan5: "Select Plan Rp 5,000",
-                btnSelectPlan12: "Select Plan Rp 12,000",
-                btnSelectPlan20: "Select Plan Rp 20,000",
-                btnSelectPlan30: "Select Plan Rp 30,000",
+                secPlansSub: "Fitted for your server container specifications.",
+                planStarterTitle: "SKYHOST STARTER",
+                planStarterDesc: "RAM 1 GB | CPU 100% | Disk 5 GB",
+                planProTitle: "SKYHOST PRO",
+                planProDesc: "RAM 2 GB | CPU 125% | Disk 10 GB",
+                btnSelectPlan5: "Order SkyHost Starter (Rp10,000)",
+                btnSelectPlan12: "Order SkyHost Pro (Rp20,000)",
                 footerHeaderServices: "SkyHost Services",
                 footerHeaderPlatform: "SkyHost Platform",
                 footerHeaderPayment: "Payment Methods",
@@ -1300,7 +1224,6 @@
                                 name: `@${user.username}`,
                                 email: user.email || `${user.username}@discord.com`,
                                 provider: 'discord',
-                                discordId: user.id,
                                 avatar: avatarUrl
                             };
 
@@ -2249,11 +2172,10 @@
             JP: { base: 75, flag: '🇯🇵', name: 'Japan', code: 'JP-Node-01', current: 75, ip: '150.95.132.' }
         };
 
+        // Presets sesuai spesifikasi gambar (SkyHost Ember & SkyHost Breeze)
         const planPresets = {
-            starter: { name: 'Paket Starter', price: 5000, ram: '1.00 GiB', cpu: '100%', disk: '5.00 GiB', ramMB: 1024, maxRam: '1.00 GiB' },
-            pro: { name: 'Paket Pro Bot', price: 12000, ram: '3.00 GiB', cpu: '200%', disk: '15.00 GiB', ramMB: 3072, maxRam: '3.00 GiB' },
-            monster: { name: 'Paket Monster Bot', price: 20000, ram: '6.00 GiB', cpu: '300%', disk: '30.00 GiB', ramMB: 6144, maxRam: '6.00 GiB' },
-            extreme: { name: 'Paket Extreme Node', price: 30000, ram: '12.00 GiB', cpu: '600%', disk: '60.00 GiB', ramMB: 12288, maxRam: '12.00 GiB' }
+            starter: { name: 'SkyHost Ember', price: 10000, ram: '1.00 GiB', cpu: '100%', disk: '5.00 GiB', ramMB: 1024, maxRam: '1.00 GiB' },
+            pro: { name: 'SkyHost Breeze', price: 20000, ram: '2.00 GiB', cpu: '125%', disk: '10.00 GiB', ramMB: 2048, maxRam: '2.00 GiB' }
         };
 
         function updateNodePings() {
@@ -2403,9 +2325,6 @@
             if (runtime.includes('python')) {
                 dockerImg = 'ghcr.io/skyhost/runtime:python_3.11';
                 startupCmd = 'python main.py';
-            } else if (runtime.includes('golang')) {
-                dockerImg = 'ghcr.io/skyhost/runtime:bot_go';
-                startupCmd = './main';
             }
 
             const newServer = {
