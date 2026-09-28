@@ -148,7 +148,9 @@
             <!-- User Auth Controls & Language Switcher -->
             <div class="flex items-center gap-3">
                 <div id="user-auth-section" class="flex items-center gap-3">
-                    <!-- Dynamic rendering by JS -->
+                    <button onclick="openAuthModal()" class="px-4 py-2 bg-sky-600 hover:bg-sky-500 text-white font-extrabold text-xs rounded-xl transition-all shadow-md shadow-sky-600/20 flex items-center gap-1.5">
+                        <i class="fa-solid fa-right-to-bracket"></i> Masuk / Login
+                    </button>
                 </div>
 
                 <div class="flex items-center gap-1.5 font-mono text-xs pl-2 border-l border-slate-200 select-none">
@@ -603,6 +605,42 @@
         const DISCORD_CLIENT_ID = '1547033759314870333';
         const WA_ADMIN_PHONE = '6285195520118';
 
+        // Safe Storage Helper (mencegah JS error jika localStorage diblokir oleh browser/iframe hosting)
+        function safeGetStorage(key, defaultValue = null) {
+            try {
+                const item = localStorage.getItem(key);
+                return item ? JSON.parse(item) : defaultValue;
+            } catch (e) {
+                console.warn('Storage read error:', e);
+                return defaultValue;
+            }
+        }
+
+        function safeSetStorage(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+            } catch (e) {
+                console.warn('Storage write error:', e);
+            }
+        }
+
+        function safeRemoveStorage(key) {
+            try {
+                localStorage.removeItem(key);
+            } catch (e) {
+                console.warn('Storage remove error:', e);
+            }
+        }
+
+        // Safe Alert Helper
+        function notifyAlert(options) {
+            if (typeof Swal !== 'undefined') {
+                Swal.fire(options);
+            } else {
+                alert(options.title + (options.text ? '\n' + options.text : ''));
+            }
+        }
+
         const translations = {
             ID: {
                 heroBadgeTag: "HARGA TERJANGKAU",
@@ -634,9 +672,9 @@
             }
         };
 
-        let currentUser = JSON.parse(localStorage.getItem('skyhost_user')) || null;
-        let userServers = JSON.parse(localStorage.getItem('skyhost_servers')) || [];
-        let currentLang = localStorage.getItem('skyhost_lang') || 'ID';
+        let currentUser = safeGetStorage('skyhost_user', null);
+        let userServers = safeGetStorage('skyhost_servers', []);
+        let currentLang = safeGetStorage('skyhost_lang', 'ID');
 
         const planPresets = {
             starter: { name: 'SkyHost Starter', price: 10000, ram: '512 MB', cpu: '100%', disk: '512 MB' },
@@ -721,16 +759,16 @@
 
             if (!email || !pass) return;
 
-            const storedAccounts = JSON.parse(localStorage.getItem('skyhost_accounts')) || {};
+            const storedAccounts = safeGetStorage('skyhost_accounts', {});
 
             if (storedAccounts[email]) {
                 if (storedAccounts[email].password !== pass) {
-                    Swal.fire({ title: 'Password Salah!', text: 'Password tidak cocok.', icon: 'error' });
+                    notifyAlert({ title: 'Password Salah!', text: 'Password tidak cocok.', icon: 'error' });
                     return;
                 }
             } else {
                 storedAccounts[email] = { email, password: pass };
-                localStorage.setItem('skyhost_accounts', JSON.stringify(storedAccounts));
+                safeSetStorage('skyhost_accounts', storedAccounts);
             }
 
             currentUser = {
@@ -739,10 +777,10 @@
                 provider: 'email',
                 email: email
             };
-            localStorage.setItem('skyhost_user', JSON.stringify(currentUser));
+            safeSetStorage('skyhost_user', currentUser);
             updateAuthUI();
             closeEmailAuthModal();
-            Swal.fire({ title: 'Berhasil Masuk!', text: `Selamat datang, ${currentUser.username}!`, icon: 'success', timer: 1800, showConfirmButton: false });
+            notifyAlert({ title: 'Berhasil Masuk!', text: `Selamat datang, ${currentUser.username}!`, icon: 'success', timer: 1800, showConfirmButton: false });
         }
 
         function handleEmailRegisterSubmit(e) {
@@ -752,18 +790,18 @@
             const passRepeat = document.getElementById('reg-pass-repeat').value;
 
             if (pass.length < 6) {
-                Swal.fire({ title: 'Password Pendek!', text: 'Minimal 6 karakter.', icon: 'warning' });
+                notifyAlert({ title: 'Password Pendek!', text: 'Minimal 6 karakter.', icon: 'warning' });
                 return;
             }
 
             if (pass !== passRepeat) {
-                Swal.fire({ title: 'Password Tidak Sama!', text: 'Konfirmasi password ulang harus persis.', icon: 'error' });
+                notifyAlert({ title: 'Password Tidak Sama!', text: 'Konfirmasi password ulang harus persis.', icon: 'error' });
                 return;
             }
 
-            const storedAccounts = JSON.parse(localStorage.getItem('skyhost_accounts')) || {};
+            const storedAccounts = safeGetStorage('skyhost_accounts', {});
             storedAccounts[email] = { email, password: pass };
-            localStorage.setItem('skyhost_accounts', JSON.stringify(storedAccounts));
+            safeSetStorage('skyhost_accounts', storedAccounts);
 
             currentUser = {
                 username: email.split('@')[0],
@@ -771,10 +809,10 @@
                 provider: 'email',
                 email: email
             };
-            localStorage.setItem('skyhost_user', JSON.stringify(currentUser));
+            safeSetStorage('skyhost_user', currentUser);
             updateAuthUI();
             closeEmailAuthModal();
-            Swal.fire({ title: 'Pendaftaran Berhasil!', text: 'Akun Anda berhasil didaftarkan.', icon: 'success' });
+            notifyAlert({ title: 'Pendaftaran Berhasil!', text: 'Akun Anda berhasil didaftarkan.', icon: 'success' });
         }
 
         function startDiscordLogin() {
@@ -785,44 +823,49 @@
         }
 
         function checkOAuthRedirect() {
-            const hash = window.location.hash;
-            if (hash && hash.includes('access_token')) {
-                const params = new URLSearchParams(hash.replace('#', '?'));
-                const accessToken = params.get('access_token');
-                if (accessToken) {
-                    fetch('https://discord.com/api/v10/users/@me', {
-                        headers: { authorization: `Bearer ${accessToken}` }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data && data.username) {
-                            const formattedUsername = data.discriminator && data.discriminator !== '0' 
-                                ? `${data.username}#${data.discriminator}` 
-                                : `@${data.username}`;
-                            
-                            const avatarUrl = data.avatar 
-                                ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png` 
-                                : 'https://cdn.discordapp.com/embed/avatars/0.png';
+            try {
+                const hash = window.location.hash;
+                if (hash && hash.includes('access_token')) {
+                    const params = new URLSearchParams(hash.replace('#', '?'));
+                    const accessToken = params.get('access_token');
+                    if (accessToken) {
+                        fetch('https://discord.com/api/v10/users/@me', {
+                            headers: { authorization: `Bearer ${accessToken}` }
+                        })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data && data.username) {
+                                const formattedUsername = data.discriminator && data.discriminator !== '0' 
+                                    ? `${data.username}#${data.discriminator}` 
+                                    : `@${data.username}`;
+                                
+                                const avatarUrl = data.avatar 
+                                    ? `https://cdn.discordapp.com/avatars/${data.id}/${data.avatar}.png` 
+                                    : 'https://cdn.discordapp.com/embed/avatars/0.png';
 
-                            currentUser = {
-                                username: formattedUsername,
-                                avatar: avatarUrl,
-                                provider: 'discord',
-                                id: data.id
-                            };
-                            localStorage.setItem('skyhost_user', JSON.stringify(currentUser));
-                            window.history.replaceState(null, null, window.location.pathname);
-                            updateAuthUI();
-                            Swal.fire({ title: 'Login Discord Berhasil!', text: `Selamat datang, ${currentUser.username}!`, icon: 'success', timer: 2000, showConfirmButton: false });
-                        }
-                    });
+                                currentUser = {
+                                    username: formattedUsername,
+                                    avatar: avatarUrl,
+                                    provider: 'discord',
+                                    id: data.id
+                                };
+                                safeSetStorage('skyhost_user', currentUser);
+                                window.history.replaceState(null, null, window.location.pathname);
+                                updateAuthUI();
+                                notifyAlert({ title: 'Login Discord Berhasil!', text: `Selamat datang, ${currentUser.username}!`, icon: 'success', timer: 2000, showConfirmButton: false });
+                            }
+                        })
+                        .catch(err => console.error('OAuth error:', err));
+                    }
                 }
+            } catch (err) {
+                console.error('Hash parse error:', err);
             }
         }
 
         function logoutUser() {
             currentUser = null;
-            localStorage.removeItem('skyhost_user');
+            safeRemoveStorage('skyhost_user');
             updateAuthUI();
             renderDashboardServers();
             switchMainView('dashboard');
@@ -843,7 +886,7 @@
                 const isAdmin = currentUser && currentUser.provider === 'discord' && 
                     (currentUser.username.toLowerCase() === '@brody201109' || currentUser.username.toLowerCase() === 'brody201109');
                 if (!isAdmin) {
-                    Swal.fire({ title: 'Akses Ditolak!', text: 'Admin Panel khusus untuk akun Discord @brody201109.', icon: 'error' });
+                    notifyAlert({ title: 'Akses Ditolak!', text: 'Admin Panel khusus untuk akun Discord @brody201109.', icon: 'error' });
                     return;
                 }
             }
@@ -865,7 +908,7 @@
             // Check mandatory login before order/checkout
             if (!currentUser) {
                 openAuthModal();
-                Swal.fire({
+                notifyAlert({
                     title: 'Login Diperlukan',
                     text: 'Silakan login terlebih dahulu untuk mendaftarkan data akun dan memproses pesanan Anda.',
                     icon: 'info',
@@ -895,9 +938,9 @@
             const runtimeKey = document.getElementById('order-runtime').value;
             const plan = planPresets[planKey] || planPresets.pro;
 
-            let runtimeLabel = 'Node.js 20';
-            if (runtimeKey === 'python311') runtimeLabel = 'Python 3.11';
-            else if (runtimeKey === 'java17') runtimeLabel = 'Java 17 / 21';
+            let runtimeLabel = 'Node.js';
+            if (runtimeKey === 'python') runtimeLabel = 'Python';
+            else if (runtimeKey === 'java') runtimeLabel = 'Java';
 
             const newServer = {
                 id: Math.random().toString(36).substring(2, 10),
@@ -1009,14 +1052,14 @@
                                         <span class="text-slate-400 text-[11px]">Username:</span>
                                         <div class="flex items-center gap-1.5">
                                             <span class="text-slate-900 font-bold font-mono text-xs select-all">${server.panelUser || '-'}</span>
-                                            <button onclick="navigator.clipboard.writeText('${server.panelUser || ''}'); Swal.fire({title:'Disalin!',icon:'success',toast:true,position:'top-end',showConfirmButton:false,timer:1200})" class="text-slate-400 hover:text-sky-600 px-1"><i class="fa-solid fa-copy text-xs"></i></button>
+                                            <button onclick="navigator.clipboard.writeText('${server.panelUser || ''}'); notifyAlert({title:'Disalin!',icon:'success',toast:true,position:'top-end',showConfirmButton:false,timer:1200})" class="text-slate-400 hover:text-sky-600 px-1"><i class="fa-solid fa-copy text-xs"></i></button>
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center bg-white p-2 rounded-lg border border-sky-100 shadow-sm">
                                         <span class="text-slate-400 text-[11px]">Password:</span>
                                         <div class="flex items-center gap-1.5">
                                             <span class="text-emerald-600 font-bold font-mono text-xs select-all">${server.panelPass || '-'}</span>
-                                            <button onclick="navigator.clipboard.writeText('${server.panelPass || ''}'); Swal.fire({title:'Disalin!',icon:'success',toast:true,position:'top-end',showConfirmButton:false,timer:1200})" class="text-slate-400 hover:text-emerald-600 px-1"><i class="fa-solid fa-copy text-xs"></i></button>
+                                            <button onclick="navigator.clipboard.writeText('${server.panelPass || ''}'); notifyAlert({title:'Disalin!',icon:'success',toast:true,position:'top-end',showConfirmButton:false,timer:1200})" class="text-slate-400 hover:text-emerald-600 px-1"><i class="fa-solid fa-copy text-xs"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -1095,49 +1138,66 @@
             const server = userServers.find(s => s.id === serverId);
             if (!server) return;
 
-            Swal.fire({
-                title: `Aktifkan Panel (${server.name})`,
-                html: `
-                    <div class="space-y-3 text-left text-xs font-mono">
-                        <div>
-                            <label class="block text-slate-700 font-bold mb-1">1. Link URL Panel Pterodactyl:</label>
-                            <input type="text" id="swal-panel-url" value="${server.panelUrl || 'https://panel.skyhost.cloud'}" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sky-600 outline-none">
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    title: `Aktifkan Panel (${server.name})`,
+                    html: `
+                        <div class="space-y-3 text-left text-xs font-mono">
+                            <div>
+                                <label class="block text-slate-700 font-bold mb-1">1. Link URL Panel Pterodactyl:</label>
+                                <input type="text" id="swal-panel-url" value="${server.panelUrl || 'https://panel.skyhost.cloud'}" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-sky-600 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-bold mb-1">2. Username Panel:</label>
+                                <input type="text" id="swal-panel-user" value="${server.panelUser || server.owner.replace('@', '')}" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-slate-700 font-bold mb-1">3. Password Panel:</label>
+                                <input type="text" id="swal-panel-pass" value="${server.panelPass || Math.random().toString(36).slice(-8) + '!Sky'}" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-emerald-600 font-bold outline-none">
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-slate-700 font-bold mb-1">2. Username Panel:</label>
-                            <input type="text" id="swal-panel-user" value="${server.panelUser || server.owner.replace('@', '')}" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none">
-                        </div>
-                        <div>
-                            <label class="block text-slate-700 font-bold mb-1">3. Password Panel:</label>
-                            <input type="text" id="swal-panel-pass" value="${server.panelPass || Math.random().toString(36).slice(-8) + '!Sky'}" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 text-emerald-600 font-bold outline-none">
-                        </div>
-                    </div>
-                `,
-                showCancelButton: true,
-                confirmButtonText: '✓ Aktifkan & Simpan Akses',
-                preConfirm: () => {
-                    const url = document.getElementById('swal-panel-url').value.trim();
-                    const user = document.getElementById('swal-panel-user').value.trim();
-                    const pass = document.getElementById('swal-panel-pass').value.trim();
-                    if (!url || !user || !pass) {
-                        Swal.showValidationMessage('Semua kolom wajib diisi!');
-                        return false;
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: '✓ Aktifkan & Simpan Akses',
+                    preConfirm: () => {
+                        const url = document.getElementById('swal-panel-url').value.trim();
+                        const user = document.getElementById('swal-panel-user').value.trim();
+                        const pass = document.getElementById('swal-panel-pass').value.trim();
+                        if (!url || !user || !pass) {
+                            Swal.showValidationMessage('Semua kolom wajib diisi!');
+                            return false;
+                        }
+                        return { url, user, pass };
                     }
-                    return { url, user, pass };
-                }
-            }).then(res => {
-                if (res.isConfirmed && res.value) {
+                }).then(res => {
+                    if (res.isConfirmed && res.value) {
+                        server.isApproved = true;
+                        server.isSuspended = false;
+                        server.panelUrl = res.value.url;
+                        server.panelUser = res.value.user;
+                        server.panelPass = res.value.pass;
+                        persistServers();
+                        renderDashboardServers();
+                        renderAdminPanel();
+                        notifyAlert({ title: 'Server Aktif!', text: 'Akses Pterodactyl berhasil disimpan.', icon: 'success' });
+                    }
+                });
+            } else {
+                const url = prompt("Link URL Panel Pterodactyl:", server.panelUrl || "https://panel.skyhost.cloud");
+                const user = prompt("Username Panel:", server.panelUser || server.owner);
+                const pass = prompt("Password Panel:", server.panelPass || "Sky12345!");
+                if (url && user && pass) {
                     server.isApproved = true;
                     server.isSuspended = false;
-                    server.panelUrl = res.value.url;
-                    server.panelUser = res.value.user;
-                    server.panelPass = res.value.pass;
+                    server.panelUrl = url;
+                    server.panelUser = user;
+                    server.panelPass = pass;
                     persistServers();
                     renderDashboardServers();
                     renderAdminPanel();
-                    Swal.fire({ title: 'Server Aktif!', text: 'Akses Pterodactyl berhasil disimpan.', icon: 'success' });
+                    alert("Server Aktif!");
                 }
-            });
+            }
         }
 
         function showPanelCredentialsModal(serverId) {
@@ -1162,7 +1222,7 @@
             if (el) {
                 el.select();
                 document.execCommand('copy');
-                Swal.fire({ title: 'Disalin!', icon: 'success', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 });
+                notifyAlert({ title: 'Disalin!', icon: 'success', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 });
             }
         }
 
@@ -1177,7 +1237,7 @@
 
         function setLanguage(lang) {
             currentLang = lang;
-            localStorage.setItem('skyhost_lang', lang);
+            safeSetStorage('skyhost_lang', lang);
             updateLangUI();
             renderDashboardServers();
         }
@@ -1190,19 +1250,31 @@
             });
         }
 
-        function persistServers() { localStorage.setItem('skyhost_servers', JSON.stringify(userServers)); }
+        function persistServers() { safeSetStorage('skyhost_servers', userServers); }
         function openTermsModal() { document.getElementById('modal-terms').classList.remove('hidden'); }
         function closeTermsModal() { document.getElementById('modal-terms').classList.add('hidden'); }
         function openPrivacyModal() { document.getElementById('modal-privacy').classList.remove('hidden'); }
         function closePrivacyModal() { document.getElementById('modal-privacy').classList.add('hidden'); }
 
-        window.onload = function() {
-            checkOAuthRedirect();
-            updateAuthUI();
-            updateLangUI();
-            renderDashboardServers();
-            renderAdminPanel();
-        };
+        function initApp() {
+            try {
+                checkOAuthRedirect();
+                updateAuthUI();
+                updateLangUI();
+                renderDashboardServers();
+                renderAdminPanel();
+            } catch (e) {
+                console.error('App initialization error:', e);
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+
+        window.onload = initApp;
     </script>
 </body>
 </html>
